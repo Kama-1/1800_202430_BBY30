@@ -6,10 +6,10 @@ This browser based web application to ...
 
 ## 2. Names of Contributors
 List team members and/or short bio's here... 
-* Hi my name is Kevin! Excited to create a web application!
+* ...Jonah Botelho, Term 1 CST student.
+* Hi my name is Kevin! Username is NivekGnu.
 * ...
-* ...
-	
+
 ## 3. Technologies and Resources Used
 List technologies (with version numbers), API's, icons, fonts, images, media or data sources, and other resources that were used.
 * HTML, CSS, JavaScript
