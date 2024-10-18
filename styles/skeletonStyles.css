@@ -15,6 +15,28 @@ html, body {
     grid-row-gap: 2vh;
     padding-top: 2vh;
 }
+#navBar {
+    display: flex;
+    justify-content: space-around; /* Space out the items evenly */
+    align-items: center; /* Center align items vertically */
+}
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item img {
+    min-width: 30px;
+    max-width: 40px;
+    margin-bottom: 5px;
+}
+
+#navBar a {
+    display: block;
+}
 #navBar p {
     text-align: center;
     grid-row: 2;
