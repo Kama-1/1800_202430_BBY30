@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+#container  {
+    max-width: 1000px; 
+    margin: 0 auto;
+    padding: 0% 2%;
+    font-size: 1.5rem; 
+}
+.btn {
+    margin: 1% 0% 1% 0%;
+}
+#showCoursesOnStartup {
+    margin-top: 1.5%;
+}
+.form-group {
+    margin-top: 5%;
+}
+.switch {
+    margin: 2% 0% 0% 0%;
+}
+/* 
+This might be useful later
+input, button, select {
+    min-height: 50px;
+} */
