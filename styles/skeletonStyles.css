@@ -88,3 +88,10 @@ img {
 #amount-completed p {
     margin: auto;
 }
+
+/* Added to keep headings consistent */
+.heading {
+  text-align: center;
+  background-color: darkgray;
+  padding: 1em 1em;
+}
