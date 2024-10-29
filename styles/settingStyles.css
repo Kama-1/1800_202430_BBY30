@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    height: 130vh; /* Temporary solution to navbar covering "logout" button*/
 }
 #container  {
     max-width: 1000px; 
@@ -25,3 +26,12 @@ This might be useful later
 input, button, select {
     min-height: 50px;
 } */
+
+#profileIcon {
+    margin-left: 5vw;
+    margin-bottom: 1%;
+    float: left;
+    display: block;
+    max-height: 10vh;
+    min-height: 8hv;
+}

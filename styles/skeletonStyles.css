@@ -118,3 +118,9 @@ img {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+/* Added to keep headings consistent */
+.heading {
+  text-align: center;
+  background-color: darkgray;
+  padding: 1em 1em;
+}
