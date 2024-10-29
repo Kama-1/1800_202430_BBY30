@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    height: 110vh; /* Temporary solution to navbar covering "logout" button*/
 }
 #container  {
     max-width: 1000px; 
