@@ -23,3 +23,68 @@ img {
     display: block;
     margin: 0 auto;
 }
+
+/* Assignment Instance */
+.assignment{
+    width: 70%;
+    height: 8em;
+    margin: 2em auto;
+    background-color: lightgrey;
+    border-radius: 1em;
+    padding: 1% 1em;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+
+#top-row {
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 80% 1fr 1fr;
+}
+
+#top-row p {
+    font-size: larger;
+    font-weight: bold;
+    margin: auto auto 0.2em 0;
+}
+
+#assignment-tag {
+    background-color: darkgrey;
+    width: auto;
+    margin: auto;
+    margin-left: 0;
+    margin-top: 0;
+    border-radius: 3em;
+}
+
+#assignment-tag p {
+    color: white;
+    margin: auto 1em;
+    font-size: 0.9em;
+}
+
+#bottom-row {
+    grid-row: 3;
+    font-size: large;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+#bottom-row > p {
+    margin: 1em auto auto 0
+}
+
+#amount-completed {
+        margin: 1em 0 0 auto;
+}
+
+#amount-completed img {
+    vertical-align: middle;
+    float: left;
+    margin: auto 5px auto auto;
+}
+
+#amount-completed p {
+    margin: auto;
+}
