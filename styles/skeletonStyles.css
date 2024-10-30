@@ -17,7 +17,7 @@
     2rem looks better on mobile, but sometimes overlaps on pc.
     1.7rem can work for now, but I'll try to find a better solution later.
     */
-    font-size: 1.7rem; 
+    font-size: 1.2rem; 
 }
 img {
     display: block;
