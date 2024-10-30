@@ -8,3 +8,17 @@ html, body {
     background-color: darkgray;
     padding: 1em 1em;
 }
+
+#dropdown {
+    margin-left: 40%;
+}
+
+#top-bar {
+    display: grid;
+    margin-top: 2%;
+    grid-template-columns: 1fr 1fr;
+}
+
+#add-assignment img {
+    width: 50px;
+}
