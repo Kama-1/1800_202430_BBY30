@@ -59,14 +59,14 @@
          <!-- Website theme selector -->
          <div id="themeSelector" class="form-group">
             <label for="websiteTheme">Website theme</label>
-            <select class="form-control rounded-select fs-3" id="websiteTheme">
+            <select class="form-control rounded-select fs-3" id="websiteTheme" onclick="updateWebsiteTheme()">
                <option value="light">Light</option>
                <option value="dark">Dark</option>
             </select>
          </div>
          <!-- Show course list on startup -->
          <div class="form-check form-switch switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="showCoursesOnStartup">
+            <input class="form-check-input" type="checkbox" role="switch" id="showCoursesOnStartup" onclick="updateShowCoursesOnStartup()">
             <label class="form-check-label " for="showCoursesOnStartup">Show course list at startup</label>
          </div>
          <!-- Logout -->
