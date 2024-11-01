@@ -9,7 +9,7 @@ var uiConfig = {
           //User information to be saved
           name: user.displayName,
           course_list_startup: false,
-          website_theme: light,
+          website_theme: "light",
           points: 0,
         }).then(function () {
           window.location.assign("assignments.html");
