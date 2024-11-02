@@ -1,6 +1,7 @@
+/* Navbar instance */
 #navBar {
     background-color: darkgray;
-    padding-top: 2vh;
+    padding-top: 3vh;
     justify-content: space-around; 
 }
 .nav-item {
@@ -8,16 +9,12 @@
     color: inherit;
 }
 .nav-item img {
-    min-height: 5vh;
-    max-height: 6vh;
+    min-height: 4%;
+    max-height: 4vh;
 }
 #navBar p {
     text-align: center;
-    /*
-    2rem looks better on mobile, but sometimes overlaps on pc.
-    1.7rem can work for now, but I'll try to find a better solution later.
-    */
-    font-size: 1.2rem; 
+    font-size: 1rem; 
 }
 img {
     display: block;

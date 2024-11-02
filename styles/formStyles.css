@@ -1,7 +1,6 @@
 body {
     margin: 0;
-    padding: 0;
-    height: 130vh; /* Temporary solution to navbar covering "logout" button*/
+    padding-bottom: 15vh /* Fixes navbar overlap. Might need adjustment later. */;
 }
 #container  {
     max-width: 1000px; 
@@ -21,11 +20,6 @@ body {
 .switch {
     margin: 2% 0% 0% 0%;
 }
-/* 
-This might be useful later
-input, button, select {
-    min-height: 50px;
-} */
 
 #profileIcon {
     margin-left: 5vw;
