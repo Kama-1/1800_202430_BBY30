@@ -25,7 +25,7 @@ img {
 }
 
 /* Assignment Instance */
-#assignment{
+.assignment{
     width: 90%;
     height: 8em;
     margin: 2em auto;
@@ -37,13 +37,13 @@ img {
 }
 
 
-#top-row {
+.top-row {
     grid-row: 1;
     display: grid;
     grid-template-columns: 80% 1fr 1fr;
 }
 
-#bookmark {
+.bookmark {
     appearance: none;
     width: 20px;
     border-right: 14px solid white;
@@ -52,24 +52,24 @@ img {
     margin: 0;
 }
 
-#bookmark:checked {
+.bookmark:checked {
     border-right-color: black;
     border-left-color: black;
 }
 
-#checkbox {
+.checkbox {
     margin: 0 0 0 auto;
     width: 35px;
     
 }
 
-#top-row p {
+.top-row p {
     font-size: larger;
     font-weight: bold;
     margin: auto auto 0.2em 0;
 }
 
-#assignment-tag {
+.assignment-tag {
     background-color: darkgrey;
     width: auto;
     margin: auto;
@@ -78,28 +78,28 @@ img {
     border-radius: 3em;
 }
 
-#assignment-tag p {
+.assignment-tag p {
     color: white;
     margin: auto 1em;
     font-size: 0.9em;
 }
 
-#bottom-row {
+.bottom-row {
     grid-row: 3;
     font-size: large;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-#bottom-row > p {
+.bottom-row > p {
     margin: 1em auto auto 0
 }
 
-#amount-completed {
+.amount-completed {
         margin: 1em 0 0 auto;
 }
 
-#amount-completed img {
+.amount-completed img {
     vertical-align: middle;
     float: left;
     width: 35px;
@@ -107,13 +107,13 @@ img {
     margin: auto 5px auto auto;
 }
 
-#amount-completed p {
+.amount-completed p {
     margin: auto;
 }
 
 /* For assignment template */
 @media only screen and (min-width: 1000px) {
-    #assignment-list {
+    .assignment-list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
