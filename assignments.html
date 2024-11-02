@@ -29,21 +29,23 @@
 
 <body>
   <!-- Assignment Template  -->
-  <template id="assignment">
-    <div class="top-row">
+  <template id="assignmentTemplate">
+    <div class="assignment">
+      <div class="top-row">
         <p class="title-here">Assignment Title</p>
         <input type="checkbox" class="bookmark">
         <!-- <img src="https://placehold.co/35" id="bookmark"> -->
         <input type="checkbox" class="checkbox">
-    </div>
-    <div class="assignment-tag">
-        <p class="course-tag-here">COMP 1800</p>
-    </div>
-    <div class="bottom-row">
-        <p class="due-date-here">Due: Oct 28</p>
-        <div class="amount-completed">
-            <p><img src="/images/people.png">26/28</p>
-        </div>
+      </div>
+      <div class="assignment-tag">
+          <p class="course-tag-here">COMP 1800</p>
+      </div>
+      <div class="bottom-row">
+          <p class="due-date-here">Due: Oct 28</p>
+          <div class="amount-completed">
+              <p><img src="/images/people.png"><span class="users-completed-here">26/30</span></p>
+          </div>
+      </div>
     </div>
   </template>
 
@@ -51,14 +53,13 @@
   <div class="heading">
     <h1>Assignments</h1>
   </div>
-
   <div id="top-bar">
     <div id="dropdown"></div>
     <a id="add-assignment">
       <img src="./images/plus.png">
     </a>
   </div>
-  <div id="Assignments-go-here"></div>
+    <div id="Assignments-go-here" class="assignment-list"></div>
 
   <!--    Navigation basr-->
   <div id="navbar"></div>

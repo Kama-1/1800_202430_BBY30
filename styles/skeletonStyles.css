@@ -25,7 +25,7 @@ img {
 }
 
 /* Assignment Instance */
-#assignment{
+.assignment{
     width: 90%;
     height: 8em;
     margin: 2em auto;
@@ -113,7 +113,7 @@ img {
 
 /* For assignment template */
 @media only screen and (min-width: 1000px) {
-    #assignment-list {
+    .assignment-list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
     }
