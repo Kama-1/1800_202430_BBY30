@@ -9,10 +9,10 @@ function displayAssignmentsDynamically(collection) {
                 var users_completed = doc.data().users_completed;
                 var total_users = 30; // TODO make this update to the # of authenticated users - 1 (-1 because the dev account shouldnt count)
 
-                var due_date = doc.data().due_date;
+                var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
                 var date = new Date(due_date * 1000);
                 var day = date.getDate();
-                var month = date.getMonth(); // TODO this does not get the correct month; the switch statement is correct, but this gets the wrong month
+                var month = date.getMonth(); 
                 var monthString;
                 switch(month){
                     case 1:
@@ -62,6 +62,7 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
+                newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
 
                 //Optional: give unique ids to all elements for future use
                 // newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
