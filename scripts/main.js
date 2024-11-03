@@ -1,9 +1,10 @@
+// TODO this must reload after every db update
+
 function displayAssignmentsDynamically(collection) {
     let cardTemplate = document.getElementById("assignmentTemplate"); // Retrieve the HTML element with the ID "hikeCardTemplate" and store it in the cardTemplate variable. 
     db.collection(collection).get()   //the collection called "hikes"
-        .then(allHikes=> {
-            //var i = 1;  //Optional: if you want to have a unique ID for each hike
-            allHikes.forEach(doc => { //iterate thru each doc
+        .then(assignment=> {
+            assignment.forEach(doc => { //iterate thru each doc
                 var title = doc.data().title;        
                 var course_tag = doc.data().course_tag;
                 var users_completed = doc.data().users_completed;
@@ -63,6 +64,23 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
                 newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
+
+                var completed_assignment_style = newcard.querySelector('.assignment');
+                var saved_checkmark = newcard.querySelector('.checkbox');
+
+                // If the assignment is completed for the authenticated user
+                firebase.auth().onAuthStateChanged(user => {
+                    assignment_id = doc.id;
+                    db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).get().then((completed_assignment) => {
+                        const completed_state = completed_assignment.data().is_completed;
+                        if(completed_state){
+                            completed_assignment_style.setAttribute("class", "assignment assignment-completed")
+                            saved_checkmark.setAttribute("checked", "checked");
+                        }
+                    });
+                });
+
+                
 
                 //Optional: give unique ids to all elements for future use
                 // newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
