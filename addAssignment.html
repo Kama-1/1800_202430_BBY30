@@ -46,18 +46,12 @@
                 <label for="editDescription">Description:</label>
                 <input type="text" class="form-control fs-3" id="editDescription">
             </div>
-            <!-- due_date (To be implemented later)  -->
-
-            <!-- <label for="editTitle">Assignment Title:</label>
-            <div class="input-group" id="datetimepicker">
-                <input type="text" class="form-control" placeholder="MM/DD/YYYY HH:MM">
-                <span class="input-group-append">
-                    <span class="input-group-text bg-light">
-                        <i class="bi bi-calendar"></i>
-                    </span>
-                </span>
-            </div> -->
-
+            <!-- due_date -->
+            <div class="form-group">
+                <label for="editDueDate">Due date:</label>
+                <br>
+                <input type="date" class="w-100" id="editDueDate">
+            </div>
             <!-- Confirm -->
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
                 onclick="addAssignment(); location.href='assignments.html';">Add Assignment</button>
