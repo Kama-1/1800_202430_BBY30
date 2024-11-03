@@ -1,5 +1,6 @@
-// TODO this must reload after every db update
 
+
+// TODO this must reload after every db update
 function displayAssignmentsDynamically(collection) {
     let cardTemplate = document.getElementById("assignmentTemplate"); // Retrieve the HTML element with the ID "hikeCardTemplate" and store it in the cardTemplate variable. 
     db.collection(collection).get()   //the collection called "hikes"
@@ -65,6 +66,7 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
                 newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
 
+                /* This causes errors, it will be fixed soon
                 var completed_assignment_style = newcard.querySelector('.assignment');
                 var saved_checkmark = newcard.querySelector('.checkbox');
 
@@ -79,7 +81,7 @@ function displayAssignmentsDynamically(collection) {
                         }
                     });
                 });
-
+                */
                 
 
                 //Optional: give unique ids to all elements for future use
