@@ -1,26 +1,27 @@
 function updateUserAssignments() {
-    firebase.auth().onAuthStateChanged(user => {
-        let user_id = user.uid;
-        db.collection("Assignments").get().then(assignment => {
-            assignment.forEach(doc => {
-                
-                let currentAssignment = db.collection("users").doc(user_id).collection("completed_assignments");
-                currentAssignment.doc(doc.id).get().then((completedAssignment) => {
-                    if(!completedAssignment.exists) {
-                        console.log("Set");
-                        currentAssignment.get().then(completedAssignment => {
-                            db.collection("users").doc(user_id).collection("completed_assignments").doc(doc.id).set({
-                                is_completed: false,
-                            });
-                        })
-                    }
+    return new Promise((resolve, reject) => {
+        firebase.auth().onAuthStateChanged(user => {
+            let user_id = user.uid;
+            db.collection("Assignments").get().then(assignment => {
+                assignment.forEach(doc => {
+                    
+                    let currentAssignment = db.collection("users").doc(user_id).collection("completed_assignments");
+                    currentAssignment.doc(doc.id).get().then((completedAssignment) => {
+                        if(!completedAssignment.exists) {
+                            console.log("Set");
+                            currentAssignment.get().then(completedAssignment => {
+                                db.collection("users").doc(user_id).collection("completed_assignments").doc(doc.id).set({
+                                    is_completed: false,
+                                });
+                            })
+                        }
+                    });
                 });
-
             });
         });
-    });
+        resolve();
+    })
 }
-updateUserAssignments();
 
 // TODO this must reload after every db update, this must wait until updateUserAssignments() is completely done
 function displayAssignmentsDynamically(collection) {
@@ -117,4 +118,8 @@ function displayAssignmentsDynamically(collection) {
         })
 }
 
-displayAssignmentsDynamically("Assignments");  //input param is the name of the collection
+updateUserAssignments().then(() => {
+    setTimeout(() => {
+        displayAssignmentsDynamically("Assignments");
+    }, 750);
+});
