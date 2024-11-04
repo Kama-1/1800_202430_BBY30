@@ -38,8 +38,17 @@
 
   <div id="container">
 
-    <div id="dropdown"></div>
-
+    <div class="btn-group">
+      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Course
+      </button>
+      <div class="dropdown-menu" id="courseNumber">
+        <button id="1800" class="dropdown-item" type="button" onclick="resetLeaderboard()">ALL</button>
+        <button id="1510" class="dropdown-item" type="button" onclick="leaderboardUpdater()">1510</button>
+        <button id="1113" class="dropdown-item" type="button" onclick="leaderboardUpdater()">1113</button>
+      </div>
+    </div>
 
     <table id="leaderboard-goes-here" class="table table-hover">
       <thead>
@@ -49,25 +58,15 @@
           <th scope="col">Points</th>
         </tr>
       </thead>
-      <tbody></tbody>
-      <!-- <tr>
-            <th scope="row">1</th>
-            <td class="leaderboard-name">Testy</td>
-            <td class="leaderboard-set">D</td>
-            <td class="leaderboard-points">111</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jonah</td>
-            <td>D</td>
-            <td>111</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Kevin</td>
-            <td>D</td>
-            <td>111</td>
-          </tr> -->
+      <tbody>
+        <!-- Will table info is in case JS or Firebase doesnt load -->
+        <tr>
+          <th scope="row">LEADERBOARD</th>
+          <td class="leaderboard-name">FAILED</td>
+          <td class="leaderboard-set">TO</td>
+          <td class="leaderboard-points">LOAD</td>
+        </tr>
+      </tbody>
     </table>
 
 
@@ -76,10 +75,11 @@
   <!-- Navigation Bar -->
   <div id="navbar"></div>
   <script src="./scripts/firebaseAPI_TEAM30.js"></script>
-  <script src="./scripts/skeleton.js"></script>
+  <!-- Keeping skeleton.js in comment in case needed -->
+  <!-- <script src="./scripts/skeleton.js"></script> -->
   <script src="./scripts/script.js"></script>
   <script src="./scripts/leaderboard.js"></script>
-
+  <script src="./scripts/dropdown.js"></script>
 </body>
 
 </html>
