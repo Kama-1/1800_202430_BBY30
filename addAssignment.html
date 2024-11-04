@@ -46,34 +46,26 @@
                 <label for="editDescription">Description:</label>
                 <input type="text" class="form-control fs-3" id="editDescription">
             </div>
-            <!-- due_date (To be implemented later)  -->
-
-            <!-- <label for="editTitle">Assignment Title:</label>
-            <div class="input-group" id="datetimepicker">
-                <input type="text" class="form-control" placeholder="MM/DD/YYYY HH:MM">
-                <span class="input-group-append">
-                    <span class="input-group-text bg-light">
-                        <i class="bi bi-calendar"></i>
-                    </span>
-                </span>
-            </div> -->
-
+            <!-- due_date -->
+            <div class="form-group">
+                <label for="editDueDate">Due date:</label>
+                <br>
+                <input type="date" class="w-100" id="editDueDate">
+            </div>
             <!-- Confirm -->
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
-                onclick="addAssignment(); location.href='assignments.html';">Add Assignment</button>
+                onclick="addAssignment();">Add Assignment</button>
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
                 onclick="location.href='settings.html';">Cancel</button>
         </form>
     </div>
     <!-- Navigation bar-->
     <div id="navbar"></div>
+    <!-- <script src="./scripts/authentication.js"></script> -->
     <script src="./scripts/firebaseAPI_TEAM30.js"></script>
     <script src="./scripts/skeleton.js"></script>
     <script src="./scripts/script.js"></script>
-    <!-- <script src="./scripts/authentication.js"></script> -->
     <script src="./scripts/addAssignment.js"></script>
-
-
 </body>
 
 </html>
