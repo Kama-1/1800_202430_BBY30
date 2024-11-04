@@ -33,10 +33,12 @@ function displayAssignmentsDynamically(collection) {
                 var users_completed = doc.data().users_completed;
                 var total_users = 30; // TODO make this update to the # of authenticated users - 1 (-1 because the dev account shouldnt count)
 
-                var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
-                var date = new Date(due_date * 1000);
-                var day = date.getDate();
-                var month = date.getMonth(); 
+    
+                // Convert Firestore Timestamp to JavaScript Date
+                var date = doc.data().due_date.toDate(); // Converts to a Date object
+
+                var day = date.getDate()+1;
+                var month = date.getMonth()+1; 
                 var monthString;
                 switch(month){
                     case 1:
