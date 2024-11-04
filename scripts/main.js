@@ -1,6 +1,28 @@
+function updateUserAssignments() {
+    firebase.auth().onAuthStateChanged(user => {
+        let user_id = user.uid;
+        db.collection("Assignments").get().then(assignment => {
+            assignment.forEach(doc => {
+                
+                let currentAssignment = db.collection("users").doc(user_id).collection("completed_assignments");
+                currentAssignment.doc(doc.id).get().then((completedAssignment) => {
+                    if(!completedAssignment.exists) {
+                        console.log("Set");
+                        currentAssignment.get().then(completedAssignment => {
+                            db.collection("users").doc(user_id).collection("completed_assignments").doc(doc.id).set({
+                                is_completed: false,
+                            });
+                        })
+                    }
+                });
 
+            });
+        });
+    });
+}
+updateUserAssignments();
 
-// TODO this must reload after every db update
+// TODO this must reload after every db update, this must wait until updateUserAssignments() is completely done
 function displayAssignmentsDynamically(collection) {
     let cardTemplate = document.getElementById("assignmentTemplate"); // Retrieve the HTML element with the ID "hikeCardTemplate" and store it in the cardTemplate variable. 
     db.collection(collection).get()   //the collection called "hikes"
@@ -66,7 +88,6 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
                 newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
 
-                /* This causes errors, it will be fixed soon
                 var completed_assignment_style = newcard.querySelector('.assignment');
                 var saved_checkmark = newcard.querySelector('.checkbox');
 
@@ -81,7 +102,6 @@ function displayAssignmentsDynamically(collection) {
                         }
                     });
                 });
-                */
                 
 
                 //Optional: give unique ids to all elements for future use
