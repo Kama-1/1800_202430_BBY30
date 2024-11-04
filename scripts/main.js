@@ -1,7 +1,7 @@
 function updateUserAssignments() {
     firebase.auth().onAuthStateChanged(user => {
         let user_id = user.uid;
-        db.collection("Assignments").get().then(assignment => {
+        db.collection("assignments").get().then(assignment => {
             assignment.forEach(doc => {
                 
                 let currentAssignment = db.collection("users").doc(user_id).collection("completed_assignments");
@@ -119,4 +119,4 @@ function displayAssignmentsDynamically(collection) {
         })
 }
 
-displayAssignmentsDynamically("Assignments");  //input param is the name of the collection
+displayAssignmentsDynamically("assignments");  //input param is the name of the collection

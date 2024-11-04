@@ -23,8 +23,8 @@ function resetLeaderboard() {
 
     tableTemplate.innerHTML = "";
 
-    db.collection("users").orderBy("points", "desc").get().then((usersOrdered) => {
-        usersOrdered.forEach((doc) => {
+    db.collection("users").orderBy("points", "desc").get().then((users) => {
+        users.forEach((doc) => {
             const data = doc.data();
             const row = tableTemplate.insertRow();
             row.insertCell(0).textContent = rank++;
