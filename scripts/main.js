@@ -36,7 +36,7 @@ function displayAssignmentsDynamically(collection) {
                 var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
                 var date = due_date.toDate();
                 var day = date.getDate();
-                var month = date.getMonth(); 
+                var month = date.getMonth() + 1; 
                 var monthString;
                 switch(month){
                     case 1:
@@ -130,9 +130,14 @@ const is_checked = (assignment_id) => {
             }, {merge: true }).catch((error) => {
                 console.log("Error getting document:", error);
             });
+            //TODO find a better solution 
+        }).then(() => {
+            setTimeout(() => {
+                location.reload();
+            }, 500); 
         });
-    });
-    location.reload()
+    })
+    // location.reload()
 }
 
 updateUserAssignments().then(() => {
