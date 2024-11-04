@@ -17,4 +17,3 @@ function addAssignment() {
         }, 250); 
     })
 }
-

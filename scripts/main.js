@@ -35,7 +35,7 @@ function displayAssignmentsDynamically(collection) {
 
                 var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
                 var date = due_date.toDate();
-                var day = date.getDate() + 1;
+                var day = date.getDate();
                 var month = date.getMonth() + 1; 
                 var monthString;
                 switch(month){
