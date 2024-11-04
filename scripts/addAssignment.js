@@ -4,7 +4,7 @@ function addAssignment() {
     const newDescription = document.getElementById("editDescription").value;
     const newDueDate = firebase.firestore.Timestamp.fromDate(new Date(document.getElementById("editDueDate").value));
     
-    db.collection("Assignments").doc(newTitle).set({
+    db.collection("assignments").doc(newTitle).set({
         title: newTitle,
         course_tag: newTag,
         description: newDescription,
