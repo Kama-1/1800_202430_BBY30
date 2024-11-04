@@ -4,7 +4,6 @@ function updateUserAssignments() {
             let user_id = user.uid;
             db.collection("assignments").get().then(assignment => {
                 assignment.forEach(doc => {
-                    
                     let currentAssignment = db.collection("users").doc(user_id).collection("completed_assignments");
                     currentAssignment.doc(doc.id).get().then((completedAssignment) => {
                         if(!completedAssignment.exists) {
@@ -34,12 +33,10 @@ function displayAssignmentsDynamically(collection) {
                 var users_completed = doc.data().users_completed;
                 var total_users = 30; // TODO make this update to the # of authenticated users - 1 (-1 because the dev account shouldnt count)
 
-    
-                // Convert Firestore Timestamp to JavaScript Date
-                var date = doc.data().due_date.toDate(); // Converts to a Date object
-
-                var day = date.getDate()+1;
-                var month = date.getMonth()+1; 
+                var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
+                var date = due_date.toDate();
+                var day = date.getDate();
+                var month = date.getMonth(); 
                 var monthString;
                 switch(month){
                     case 1:
@@ -120,8 +117,26 @@ function displayAssignmentsDynamically(collection) {
         })
 }
 
+
+const is_checked = (assignment_id) => {
+
+    firebase.auth().onAuthStateChanged(user => {
+        db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).get().then((doc) => {
+            const completed_state = doc.data().is_completed;
+            console.log(completed_state);
+            db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).set({
+                is_completed: !completed_state,
+    
+            }, {merge: true }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        });
+    });
+    location.reload()
+}
+
 updateUserAssignments().then(() => {
     setTimeout(() => {
-        displayAssignmentsDynamically("Assignments");
+        displayAssignmentsDynamically("assignments");
     }, 750);
 });
