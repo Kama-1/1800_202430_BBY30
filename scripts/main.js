@@ -130,8 +130,13 @@ const is_checked = (assignment_id) => {
             }, {merge: true }).catch((error) => {
                 console.log("Error getting document:", error);
             });
+            //TODO find a better solution 
+        }).then(() => {
+            setTimeout(() => {
+                location.reload();
+            }, 500); 
         });
-    });
+    })
     // location.reload()
 }
 
