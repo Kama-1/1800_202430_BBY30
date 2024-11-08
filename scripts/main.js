@@ -123,7 +123,22 @@ const is_checked = (assignment_id) => {
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).get().then((doc) => {
             const completed_state = doc.data().is_completed;
-            console.log(completed_state);
+
+            let negative = 1;
+            if (completed_state) {
+                negative = -1;
+            }
+            let assignmentPoints = 0;
+            db.collection("assignments").doc(assignment_id).get().then((doc) => {
+                //TODO create points formula
+                assignmentPoints = negative * doc.data().points;
+                db.collection("users").doc(user.uid).set({
+                    points: firebase.firestore.FieldValue.increment(assignmentPoints),
+                }, { merge: true }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+            })
+
             db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).set({
                 is_completed: !completed_state,
     
