@@ -29,6 +29,7 @@ function displayAssignmentsDynamically(collection) {
         .then(assignment=> {
             assignment.forEach(doc => { //iterate thru each doc
                 var title = doc.data().title;        
+                var points = doc.data().points;
                 var course_tag = doc.data().course_tag;
                 var users_completed = doc.data().users_completed;
                 var total_users = 30; // TODO make this update to the # of authenticated users - 1 (-1 because the dev account shouldnt count)
@@ -83,6 +84,7 @@ function displayAssignmentsDynamically(collection) {
 
                 //update title and text and image
                 newcard.querySelector('.title-here').innerHTML = title;
+                newcard.querySelector('.points-here').innerHTML = "+" + points;
                 newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
@@ -123,7 +125,7 @@ const is_checked = (assignment_id) => {
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).get().then((doc) => {
             const completed_state = doc.data().is_completed;
-
+            //Add points
             let negative = 1;
             if (completed_state) {
                 negative = -1;
@@ -138,7 +140,7 @@ const is_checked = (assignment_id) => {
                     console.log("Error getting document:", error);
                 });
             })
-
+            //Mark assignment
             db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).set({
                 is_completed: !completed_state,
     

@@ -46,7 +46,15 @@ img {
 .top-row {
     grid-row: 1;
     display: grid;
-    grid-template-columns: 80% 1fr 1fr;
+    grid-template-columns: 55% 25% 1fr 1fr;
+}
+
+.title-here {
+    grid-column: 1;
+}
+
+.points-here {
+    grid-column: 2;
 }
 
 .bookmark {
@@ -56,6 +64,7 @@ img {
     border-left: 14px solid white;
     border-bottom: 10px solid transparent;
     margin: 0;
+    grid-column: 3;
 }
 
 .bookmark:checked {
@@ -66,7 +75,7 @@ img {
 .checkbox {
     margin: 0 0 0 auto;
     width: 35px;
-    
+    grid-column: 4;
 }
 
 .top-row p {
@@ -74,6 +83,7 @@ img {
     font-weight: bold;
     margin: auto auto 0.2em 0;
 }
+
 
 .assignment-tag {
     background-color: darkgrey;
