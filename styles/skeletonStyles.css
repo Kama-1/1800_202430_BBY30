@@ -130,3 +130,21 @@ img {
   background-color: darkgray;
   padding: 1em 1em;
 }
+
+.btn-group {
+    min-width: 200px;
+}
+
+#top-bar {
+    display: grid;
+    margin-top: 2%;
+    grid-template-columns: 1fr 1fr;
+}
+
+#dropdown {
+    margin-left: 40%;
+}
+
+#leaderboardDropDown {
+    margin-left: 50%;
+}

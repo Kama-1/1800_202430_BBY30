@@ -37,18 +37,20 @@
   </div>
 
   <div id="container">
-
-    <div class="btn-group">
-      <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        Course
-      </button>
-      <div class="dropdown-menu" id="courseNumber">
-        <button id="1800" class="dropdown-item" type="button" onclick="resetLeaderboard()">ALL</button>
-        <button id="1510" class="dropdown-item" type="button" onclick="leaderboardUpdater()">1510</button>
-        <button id="1113" class="dropdown-item" type="button" onclick="leaderboardUpdater()">1113</button>
+    <div id="top-bar">
+      <div class="btn-group"id="leaderboardDropDown">
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+           aria-expanded="false">
+          Course
+        </button>
+       <div class="dropdown-menu" id="courseNumber">
+          <button id="1800" class="dropdown-item" type="button" onclick="resetLeaderboard()">ALL</button>
+         <button id="1510" class="dropdown-item" type="button" onclick="leaderboardUpdater()">1510</button>
+          <button id="1113" class="dropdown-item" type="button" onclick="leaderboardUpdater()">1113</button>
+        </div>
       </div>
     </div>
+    
 
     <table id="leaderboard-goes-here" class="table table-hover">
       <thead>

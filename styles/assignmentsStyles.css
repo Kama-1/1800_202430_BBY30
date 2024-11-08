@@ -9,10 +9,6 @@ html, body {
     padding: 1em 1em;
 }
 
-#dropdown {
-    margin-left: 40%;
-}
-
 #top-bar {
     display: grid;
     margin-top: 2%;
