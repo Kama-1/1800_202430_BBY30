@@ -76,7 +76,7 @@ function displayAssignmentsDynamically(collection) {
                     db.collection("users").doc(user_id).get().then(doc => {
                         const completedAssignments = doc.data().completedAssignments
                         for(item of completedAssignments){
-                            if(item.assignment_id == assignment_id && item.isCompelted) {
+                            if(item.assignment_id === assignment_id && item.isCompleted) {
                                 completed_assignment_style.setAttribute("class", "assignment assignment-completed")
                                 saved_checkmark.setAttribute("checked", "checked");
                             }

@@ -1,3 +1,22 @@
+function addAssignmentToUserArray(assignment_id) {
+    const assignmentToAdd = {
+        assignment_id: assignment_id,
+        isCompleted: false
+    }
+
+    db.collection("users").get().then(user => {
+        user.forEach(doc => {
+            let assignmentsArray = doc.data().completedAssignments;
+            assignmentsArray.push(assignmentToAdd);
+            db.collection("users").doc(doc.id).set({
+                completedAssignments: assignmentsArray,
+            }, {merge: true})
+            console.log(`Assignment added to user ${doc.id}`)
+        })
+    })
+}
+
+
 function addAssignment() {
     const newTitle = document.getElementById("editTitle").value;
     const newTag = document.getElementById("editCourseTag").value;
@@ -12,23 +31,10 @@ function addAssignment() {
         users_completed: 0,
     }, { merge: true })
     .then(() => {
-        addAssignmentToUserArray(newTitle);
+        addAssignmentToUserArray(newTitle)
         setTimeout(() => {
             location.href = 'assignments.html';
         }, 250); 
     })
 }
 
-function addAssignmentToUserArray(assignment_id) {
-    firebase.auth().onAuthStateChanged(user => {
-        let user_id = user.uid;
-        let userRef = db.collection("users").doc(user_id);
-
-        let assignmentToAdd = {
-             assignment_id: assignment_id,
-             isCompleted: false
-        }
-
-        userRef.doc.data().completedAssignments.push(assignmentToAdd);
-    })
-}

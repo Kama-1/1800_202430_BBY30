@@ -15,22 +15,20 @@ function initializeUserAssignmentArray() {
   })
   return assignmentArray;
 }
-const assignmentArray = initializeUserAssignmentArray();
-console.log(assignmentArray);
+const assignmentArray = initializeUserAssignmentArray(); // This only works half of the time because of firebase permission problems
 
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
-        let array = initializeUserAssignmentArray();
         db.collection("users").doc(user.uid).set({
           //User information to be saved
+          completedAssignments: assignmentArray,
           name: user.displayName,
           course_list_startup: false,
           website_theme: "light",
           points: 0,
-          completedAssignments: assignmentArray,
         }).then(function () {
           window.location.assign("assignments.html");
         }).catch(function (error) {
