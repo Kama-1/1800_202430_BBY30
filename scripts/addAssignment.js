@@ -12,8 +12,23 @@ function addAssignment() {
         users_completed: 0,
     }, { merge: true })
     .then(() => {
+        addAssignmentToUserArray(newTitle);
         setTimeout(() => {
             location.href = 'assignments.html';
         }, 250); 
+    })
+}
+
+function addAssignmentToUserArray(assignment_id) {
+    firebase.auth().onAuthStateChanged(user => {
+        let user_id = user.uid;
+        let userRef = db.collection("users").doc(user_id);
+
+        let assignmentToAdd = {
+             assignment_id: assignment_id,
+             isCompleted: false
+        }
+
+        userRef.doc.data().completedAssignments.push(assignmentToAdd);
     })
 }

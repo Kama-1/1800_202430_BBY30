@@ -1,26 +1,3 @@
-function updateUserAssignments() {
-    return new Promise((resolve, reject) => {
-        firebase.auth().onAuthStateChanged(user => {
-            let user_id = user.uid;
-            db.collection("assignments").get().then(assignment => {
-                assignment.forEach(doc => {
-                    let currentAssignment = db.collection("users").doc(user_id).collection("completed_assignments");
-                    currentAssignment.doc(doc.id).get().then((completedAssignment) => {
-                        if(!completedAssignment.exists) {
-                            console.log("Set");
-                            currentAssignment.get().then(completedAssignment => {
-                                db.collection("users").doc(user_id).collection("completed_assignments").doc(doc.id).set({
-                                    is_completed: false,
-                                });
-                            })
-                        }
-                    });
-                });
-            });
-        });
-        resolve();
-    })
-}
 
 // TODO this must reload after every db update, this must wait until updateUserAssignments() is completely done
 function displayAssignmentsDynamically(collection) {
@@ -93,29 +70,25 @@ function displayAssignmentsDynamically(collection) {
 
                 // If the assignment is completed for the authenticated user
                 firebase.auth().onAuthStateChanged(user => {
-                    assignment_id = doc.id;
-                    db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).get().then((completed_assignment) => {
-                        const completed_state = completed_assignment.data().is_completed;
-                        if(completed_state){
-                            completed_assignment_style.setAttribute("class", "assignment assignment-completed")
-                            saved_checkmark.setAttribute("checked", "checked");
+                    let assignment_id = doc.id;
+                    let user_id = user.uid;
+
+                    db.collection("users").doc(user_id).get().then(doc => {
+                        const completedAssignments = doc.data().completedAssignments
+                        for(item of completedAssignments){
+                            if(item.assignment_id == assignment_id && item.isCompelted) {
+                                completed_assignment_style.setAttribute("class", "assignment assignment-completed")
+                                saved_checkmark.setAttribute("checked", "checked");
+                            }
                         }
-                    });
+                    })
                 });
                 
-
-                //Optional: give unique ids to all elements for future use
-                // newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
-                // newcard.querySelector('.card-text').setAttribute("id", "ctext" + i);
-                // newcard.querySelector('.card-image').setAttribute("id", "cimage" + i);
-
-                //attach to gallery, Example: "hikes-go-here"
                 document.getElementById(collection + "-go-here").appendChild(newcard);
-
-                //i++;   //Optional: iterate variable to serve as unique ID
             })
         })
 }
+displayAssignmentsDynamically("assignments");
 
 
 const is_checked = (assignment_id) => {
@@ -137,11 +110,4 @@ const is_checked = (assignment_id) => {
             }, 500); 
         });
     })
-    // location.reload()
 }
-
-updateUserAssignments().then(() => {
-    setTimeout(() => {
-        displayAssignmentsDynamically("assignments");
-    }, 750);
-});

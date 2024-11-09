@@ -1,16 +1,36 @@
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
+
+function initializeUserAssignmentArray() {
+  let assignmentArray = new Array;
+  db.collection("assignments").get().then(assignment => {
+    assignment.forEach(doc => {
+      const item = {
+        assignment_id: doc.id,
+        isCompleted: false
+      }
+      assignmentArray.push(item);
+      
+    })
+  })
+  return assignmentArray;
+}
+const assignmentArray = initializeUserAssignmentArray();
+console.log(assignmentArray);
+
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
+        let array = initializeUserAssignmentArray();
         db.collection("users").doc(user.uid).set({
           //User information to be saved
           name: user.displayName,
           course_list_startup: false,
           website_theme: "light",
           points: 0,
+          completedAssignments: assignmentArray,
         }).then(function () {
           window.location.assign("assignments.html");
         }).catch(function (error) {
