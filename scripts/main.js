@@ -94,11 +94,16 @@ displayAssignmentsDynamically("assignments");
 const is_checked = (assignment_id) => {
 
     firebase.auth().onAuthStateChanged(user => {
-        db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).get().then((doc) => {
-            const completed_state = doc.data().is_completed;
-            console.log(completed_state);
-            db.collection("users").doc(user.uid).collection("completed_assignments").doc(assignment_id).set({
-                is_completed: !completed_state,
+        const usersRef = db.collection("users").doc(user.uid);
+        usersRef.get().then((doc) => {
+            const completedAssignments = doc.data().completedAssignments;
+            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+
+            let mergeArray = completedAssignments
+            mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
+
+            usersRef.set({
+                completedAssignments: mergeArray,
     
             }, {merge: true }).catch((error) => {
                 console.log("Error getting document:", error);
