@@ -6,6 +6,7 @@ function displayAssignmentsDynamically(collection) {
         .then(assignment=> {
             assignment.forEach(doc => { //iterate thru each doc
                 var title = doc.data().title;        
+                var points = doc.data().points;
                 var course_tag = doc.data().course_tag;
                 var users_completed = doc.data().users_completed;
                 var total_users = 30; // TODO make this update to the # of authenticated users - 1 (-1 because the dev account shouldnt count)
@@ -60,6 +61,7 @@ function displayAssignmentsDynamically(collection) {
 
                 //update title and text and image
                 newcard.querySelector('.title-here').innerHTML = title;
+                newcard.querySelector('.points-here').innerHTML = "+" + points;
                 newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
@@ -94,15 +96,30 @@ displayAssignmentsDynamically("assignments");
 const is_checked = (assignment_id) => {
 
     firebase.auth().onAuthStateChanged(user => {
-        const usersRef = db.collection("users").doc(user.uid);
-        usersRef.get().then((doc) => {
+        db.collection("users").doc(user.uid).get().then((doc) => {
+            // Updates database
             const completedAssignments = doc.data().completedAssignments;
             let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
-
             let mergeArray = completedAssignments
             mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
 
-            usersRef.set({
+            //Add points
+            let negative = 1;
+            if (!completedAssignments[assignmentIndex].isCompleted) {
+                negative = -1;
+            }
+            let assignmentPoints = 0;
+            db.collection("assignments").doc(assignment_id).get().then((doc) => {
+                //TODO create points formula
+                assignmentPoints = negative * doc.data().points;
+                db.collection("users").doc(user.uid).set({
+                    points: firebase.firestore.FieldValue.increment(assignmentPoints),
+                }, { merge: true }).catch((error) => {
+                    console.log("Error getting document:", error);
+                });
+            })
+            //Mark assignment
+            db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
     
             }, {merge: true }).catch((error) => {

@@ -38,10 +38,29 @@
             </div>
             <!-- course_tag -->
             <div class="form-group">
-                <label for="editCourseTag">Course Tag:</label>
-                <input type="text" class="form-control fs-3" id="editCourseTag">
+                <label for="editCourseTag">Course Tag</label>
+                <select class="form-control rounded-select fs-3" id="editCourseTag">
+                    <option value="COMP1100">COMP1100</option>
+                    <option value="COMM1116">COMM1116</option>
+                    <option value="COMP1113">COMP1113</option>
+                    <option value="COMP1510">COMP1510</option>
+                    <option value="COMP1537">COMP1537</option>
+                    <option value="COMP1712">COMP1712</option>
+                    <option value="COMP1800">COMP1800</option>
+                </select>
             </div>
-            <!-- course_tag -->
+            <!-- points -->
+            <div class="form-group">
+                <label for="editPoints">Points</label>
+                <select class="form-control rounded-select fs-3" id="editPoints">
+                    <!-- Add more as needed -->
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <!-- description -->
             <div class="form-group">
                 <label for="editDescription">Description:</label>
                 <input type="text" class="form-control fs-3" id="editDescription">
@@ -55,6 +74,7 @@
             <!-- Confirm -->
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
                 onclick="addAssignment();">Add Assignment</button>
+            <!-- Cancel -->
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
                 onclick="location.href='settings.html';">Cancel</button>
         </form>
