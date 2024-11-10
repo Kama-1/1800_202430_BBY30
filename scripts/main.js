@@ -3,9 +3,9 @@
 function displayAssignmentsDynamically(collection) {
     let cardTemplate = document.getElementById("assignmentTemplate"); // Retrieve the HTML element with the ID "hikeCardTemplate" and store it in the cardTemplate variable. 
     db.collection(collection).get()   //the collection called "hikes"
-        .then(assignment=> {
+        .then(assignment => {
             assignment.forEach(doc => { //iterate thru each doc
-                var title = doc.data().title;        
+                var title = doc.data().title;
                 var points = doc.data().points;
                 var course_tag = doc.data().course_tag;
                 var users_completed = doc.data().users_completed;
@@ -14,9 +14,9 @@ function displayAssignmentsDynamically(collection) {
                 var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
                 var date = due_date.toDate();
                 var day = date.getDate();
-                var month = date.getMonth() + 1; 
+                var month = date.getMonth() + 1;
                 var monthString;
-                switch(month){
+                switch (month) {
                     case 1:
                         monthString = "Jan. ";
                         break;
@@ -65,8 +65,8 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
-                newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
-                newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id +"')");
+                newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
+                newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
 
                 var completed_assignment_style = newcard.querySelector('.assignment');
                 var saved_checkmark = newcard.querySelector('.checkbox');
@@ -79,18 +79,18 @@ function displayAssignmentsDynamically(collection) {
 
                     db.collection("users").doc(user_id).get().then(doc => {
                         const completedAssignments = doc.data().completedAssignments
-                        for(item of completedAssignments){
-                            if(item.assignment_id === assignment_id && item.isCompleted) {
+                        for (item of completedAssignments) {
+                            if (item.assignment_id === assignment_id && item.isCompleted) {
                                 completed_assignment_style.setAttribute("class", "assignment assignment-completed")
                                 saved_checkmark.setAttribute("checked", "checked");
                             }
-                            if(item.assignment_id === assignment_id && item.isBookmarked) {
+                            if (item.assignment_id === assignment_id && item.isBookmarked) {
                                 saved_bookmark.setAttribute("checked", "checked");
                             }
                         }
                     })
                 });
-                
+
                 document.getElementById(collection + "-go-here").appendChild(newcard);
             })
         })
@@ -107,8 +107,8 @@ const is_bookmarked = (assignment_id) => {
 
             db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
-    
-            }, {merge: true });
+
+            }, { merge: true });
         })
 
     })
@@ -124,33 +124,26 @@ const is_checked = (assignment_id) => {
             let mergeArray = completedAssignments
             mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
 
-            //Add points
-            let negative = 1;
-            if (!completedAssignments[assignmentIndex].isCompleted) {
-                negative = -1;
-            }
-            let assignmentPoints = 0;
-            db.collection("assignments").doc(assignment_id).get().then((doc) => {
-                //TODO create points formula
-                assignmentPoints = negative * doc.data().points;
-                db.collection("users").doc(user.uid).set({
-                    points: firebase.firestore.FieldValue.increment(assignmentPoints),
-                }, { merge: true }).catch((error) => {
-                    console.log("Error getting document:", error);
+            // Calculates and adds/removes points
+            getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid)
+                .then((points) => addPoints(points, user.uid, assignment_id))
+                .catch((error) => {
+                    console.error("Error updating points:", error);
                 });
-            })
+
+
             //Mark assignment
             db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
-    
-            }, {merge: true }).catch((error) => {
+
+            }, { merge: true }).catch((error) => {
                 console.log("Error getting document:", error);
             });
             //TODO find a better solution 
         }).then(() => {
             setTimeout(() => {
                 location.reload();
-            }, 500); 
+            }, 500);
         });
     })
 }
@@ -160,13 +153,17 @@ function getPoints(isCompleted, assignment_id, user_id) {
     //check
     if (!isCompleted) {
         return db.collection("assignments").doc(assignment_id).get().then((doc) => {
-            return doc.data().points;
+            const points = doc.data().points;
+            return calculatePoints(points, assignment_id);
         });
-    } 
+    }
     //uncheck
     else {
         return db.collection("users").doc(user_id).get().then((doc) => {
-            //TODO returns "points" value within array
+            const completedAssignments = doc.data().completedAssignments;
+            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+            let tempArray = completedAssignments;
+            return -1 * tempArray[assignmentIndex].points;
         });
     }
 }
@@ -175,40 +172,46 @@ function getPoints(isCompleted, assignment_id, user_id) {
 function calculatePoints(points, assignment_id) {
     const currentDate = new Date();
     let dueDate = null;
-    return db.collection("assignments").doc("Assignment1").get().then((doc) => {
+    return db.collection("assignments").doc(assignment_id).get().then((doc) => {
         if (doc.exists) {
             dueDate = doc.data().due_date.toDate();
         }
-        const diffInDays = (currentDate - dueDate) / (1000 * 60 * 60 * 24);
+        const diffInDays = (dueDate - currentDate) / (1000 * 60 * 60 * 24);
         //Points calculation formula
         const multiplier = 1 + (diffInDays / 10);
+        // console.log(Math.round(points * multiplier));
         return Math.round(points * multiplier);
     });
 }
 
 // Adds/removes points to/from user accounts
-function addPoints(points, user_id) {
+function addPoints(assignmentPoints, user_id, assignment_id) {
     //Adding points
-    db.collection("users").doc(user.uid).set({
-        points: firebase.firestore.FieldValue.increment(points),
+    db.collection("users").doc(user_id).set({
+        points: firebase.firestore.FieldValue.increment(assignmentPoints),
     }, { merge: true }).catch((error) => {
         console.log("Error getting document:", error);
     });
     //Storing added points in array
-    if (points > 0) {
-        db.collection("users").doc(user.uid).set({
-            //TODO Store points in array
-        }, { merge: true }).catch((error) => {
-            console.log("Error getting document:", error);
+    if (assignmentPoints > 0) {
+        firebase.auth().onAuthStateChanged(user => {
+            db.collection("users").doc(user.uid).get().then((doc) => {
+                const completedAssignments = doc.data().completedAssignments;
+                let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+                completedAssignments[assignmentIndex].points = assignmentPoints;
+                return db.collection("users").doc(user_id).update({
+                    completedAssignments: completedAssignments
+                });
+            }, { merge: true }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
         });
     }
 }
 
 
 
-calculatePoints(100, "asd123").then((result) => {
-    console.log(result);  
-  });
-  
+
+
 
 
