@@ -1,7 +1,8 @@
 function addAssignmentToUserArray(assignment_id) {
     const assignmentToAdd = {
         assignment_id: assignment_id,
-        isCompleted: false
+        isCompleted: false,
+        isBookmarked: false
     }
 
     db.collection("users").get().then(user => {
@@ -11,7 +12,6 @@ function addAssignmentToUserArray(assignment_id) {
             db.collection("users").doc(doc.id).set({
                 completedAssignments: assignmentsArray,
             }, {merge: true})
-            console.log(`Assignment added to user ${doc.id}`)
         })
     })
 }

@@ -66,11 +66,13 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
                 newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
+                newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id +"')");
 
                 var completed_assignment_style = newcard.querySelector('.assignment');
                 var saved_checkmark = newcard.querySelector('.checkbox');
+                var saved_bookmark = newcard.querySelector('.bookmark');
 
-                // If the assignment is completed for the authenticated user
+                // If the assignment is completed or is bookmarked for the authenticated user
                 firebase.auth().onAuthStateChanged(user => {
                     let assignment_id = doc.id;
                     let user_id = user.uid;
@@ -82,6 +84,9 @@ function displayAssignmentsDynamically(collection) {
                                 completed_assignment_style.setAttribute("class", "assignment assignment-completed")
                                 saved_checkmark.setAttribute("checked", "checked");
                             }
+                            if(item.assignment_id === assignment_id && item.isBookmarked) {
+                                saved_bookmark.setAttribute("checked", "checked");
+                            }
                         }
                     })
                 });
@@ -92,6 +97,22 @@ function displayAssignmentsDynamically(collection) {
 }
 displayAssignmentsDynamically("assignments");
 
+const is_bookmarked = (assignment_id) => {
+    firebase.auth().onAuthStateChanged(user => {
+        db.collection("users").doc(user.uid).get().then((doc) => {
+            const completedAssignments = doc.data().completedAssignments;
+            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+            let mergeArray = completedAssignments
+            mergeArray[assignmentIndex].isBookmarked = !mergeArray[assignmentIndex].isBookmarked;
+
+            db.collection("users").doc(user.uid).set({
+                completedAssignments: mergeArray,
+    
+            }, {merge: true });
+        })
+
+    })
+}
 
 const is_checked = (assignment_id) => {
 
