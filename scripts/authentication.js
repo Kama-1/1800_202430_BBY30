@@ -9,7 +9,8 @@ async function initializeUserAssignmentArray() {
     const item = {
       assignment_id: doc.id,
       isCompleted: false,
-      isBookmarked: false
+      isBookmarked: false,
+      points: 0
     };
     assignmentArray.push(item);
   });
