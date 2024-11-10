@@ -133,3 +133,61 @@ const is_checked = (assignment_id) => {
         });
     })
 }
+
+// Returns the points value of an assignment
+function getPoints(isCompleted, assignment_id, user_id) {
+    //check
+    if (!isCompleted) {
+        return db.collection("assignments").doc(assignment_id).get().then((doc) => {
+            return doc.data().points;
+        });
+    } 
+    //uncheck
+    else {
+        return db.collection("users").doc(user_id).get().then((doc) => {
+            //TODO returns "points" value within array
+        });
+    }
+}
+
+// Calculates points based on time
+function calculatePoints(points, assignment_id) {
+    const currentDate = new Date();
+    let dueDate = null;
+    return db.collection("assignments").doc("Assignment1").get().then((doc) => {
+        if (doc.exists) {
+            dueDate = doc.data().due_date.toDate();
+        }
+        const diffInDays = (currentDate - dueDate) / (1000 * 60 * 60 * 24);
+        //Points calculation formula
+        const multiplier = 1 + (diffInDays / 10);
+        return Math.round(points * multiplier);
+    });
+}
+
+// Adds/removes points to/from user accounts
+function addPoints(points, user_id) {
+    //Adding points
+    db.collection("users").doc(user.uid).set({
+        points: firebase.firestore.FieldValue.increment(points),
+    }, { merge: true }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    //Storing added points in array
+    if (points > 0) {
+        db.collection("users").doc(user.uid).set({
+            //TODO Store points in array
+        }, { merge: true }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
+}
+
+
+
+calculatePoints(100, "asd123").then((result) => {
+    console.log(result);  
+  });
+  
+
+
