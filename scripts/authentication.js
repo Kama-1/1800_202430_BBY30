@@ -7,7 +7,8 @@ function initializeUserAssignmentArray() {
     assignment.forEach(doc => {
       const item = {
         assignment_id: doc.id,
-        isCompleted: false
+        isCompleted: false,
+        isBookmarked: false
       }
       assignmentArray.push(item);
       
