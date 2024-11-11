@@ -1,11 +1,11 @@
 
-// TODO this must reload after every db update, this must wait until updateUserAssignments() is completely done
-function displayAssignmentsDynamically(collection) {
+function displayAssignmentsDynamically(displayBookmarkedAssignments) {
+
     let cardTemplate = document.getElementById("assignmentTemplate"); // Retrieve the HTML element with the ID "hikeCardTemplate" and store it in the cardTemplate variable. 
-    db.collection(collection).get()   //the collection called "hikes"
-        .then(assignment => {
+    db.collection("assignments").get()
+        .then(assignment=> {
             assignment.forEach(doc => { //iterate thru each doc
-                var title = doc.data().title;
+                var title = doc.data().title;        
                 var points = doc.data().points;
                 var course_tag = doc.data().course_tag;
                 var users_completed = doc.data().users_completed;
@@ -14,9 +14,9 @@ function displayAssignmentsDynamically(collection) {
                 var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
                 var date = due_date.toDate();
                 var day = date.getDate();
-                var month = date.getMonth() + 1;
+                var month = date.getMonth() + 1; 
                 var monthString;
-                switch (month) {
+                switch(month){
                     case 1:
                         monthString = "Jan. ";
                         break;
@@ -65,8 +65,8 @@ function displayAssignmentsDynamically(collection) {
                 newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                 newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
-                newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
-                newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
+                newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
+                newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id +"')");
 
                 var completed_assignment_style = newcard.querySelector('.assignment');
                 var saved_checkmark = newcard.querySelector('.checkbox');
@@ -74,28 +74,35 @@ function displayAssignmentsDynamically(collection) {
 
                 // If the assignment is completed or is bookmarked for the authenticated user
                 firebase.auth().onAuthStateChanged(user => {
-                    let assignment_id = doc.id;
-                    let user_id = user.uid;
+                    const assignment_id = doc.id;
+                    const user_id = user.uid;
 
                     db.collection("users").doc(user_id).get().then(doc => {
-                        const completedAssignments = doc.data().completedAssignments
-                        for (item of completedAssignments) {
-                            if (item.assignment_id === assignment_id && item.isCompleted) {
+                        const completedAssignments = doc.data().completedAssignments;
+                        for(item of completedAssignments){
+                            if(item.assignment_id === assignment_id && item.isCompleted) {
                                 completed_assignment_style.setAttribute("class", "assignment assignment-completed")
                                 saved_checkmark.setAttribute("checked", "checked");
                             }
-                            if (item.assignment_id === assignment_id && item.isBookmarked) {
-                                saved_bookmark.setAttribute("checked", "checked");
+                            if(displayBookmarkedAssignments){ // Only display completed assignments
+                                if(item.assignment_id === assignment_id && item.isBookmarked) {
+                                    saved_bookmark.setAttribute("checked", "checked");
+                                    document.getElementById("assignments-go-here").appendChild(newcard);
+                                }
+                            } else { // Only display incompleted assignments
+                                if(item.assignment_id === assignment_id && !item.isBookmarked){
+                                    document.getElementById("assignments-go-here").appendChild(newcard);
+                                }
                             }
+
                         }
                     })
                 });
-
-                document.getElementById(collection + "-go-here").appendChild(newcard);
             })
         })
 }
-displayAssignmentsDynamically("assignments");
+displayAssignmentsDynamically(true); // Displays bookmarked assignments
+displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
 
 const is_bookmarked = (assignment_id) => {
     firebase.auth().onAuthStateChanged(user => {
