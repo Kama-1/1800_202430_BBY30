@@ -114,10 +114,13 @@ const is_bookmarked = (assignment_id) => {
 
             db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
-
             }, { merge: true });
-        })
-
+        //Adjust if needed
+        }).then(() => {
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        });
     })
 }
 
