@@ -64,7 +64,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                 newcard.querySelector('.points-here').innerHTML = "+" + points;
                 newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
                 newcard.querySelector('.course-tag-here').innerHTML = course_tag;
-                newcard.querySelector('.users-completed-here').innerHTML = users_completed + "/" + total_users;
+                newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                 newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id +"')");
                 newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id +"')");
 
@@ -215,10 +215,3 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
         });
     }
 }
-
-
-
-
-
-
-
