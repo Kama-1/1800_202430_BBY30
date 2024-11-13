@@ -114,39 +114,8 @@ const is_bookmarked = (assignment_id) => {
 
             db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
-
             }, { merge: true });
-        })
-
-    })
-}
-
-const is_checked = (assignment_id) => {
-
-    firebase.auth().onAuthStateChanged(user => {
-        db.collection("users").doc(user.uid).get().then((doc) => {
-            // Updates database
-            const completedAssignments = doc.data().completedAssignments;
-            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
-            let mergeArray = completedAssignments
-            mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
-
-            // Calculates and adds/removes points
-            getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid)
-                .then((points) => addPoints(points, user.uid, assignment_id))
-                .catch((error) => {
-                    console.error("Error updating points:", error);
-                });
-
-
-            //Mark assignment
-            db.collection("users").doc(user.uid).set({
-                completedAssignments: mergeArray,
-
-            }, { merge: true }).catch((error) => {
-                console.log("Error getting document:", error);
-            });
-            //TODO find a better solution 
+        //Adjust if needed
         }).then(() => {
             setTimeout(() => {
                 location.reload();
@@ -154,6 +123,29 @@ const is_checked = (assignment_id) => {
         });
     })
 }
+
+const is_checked = (assignment_id) => {
+
+    firebase.auth().onAuthStateChanged(async (user) => {
+        const doc = await db.collection("users").doc(user.uid).get();
+        // Updates database
+        const completedAssignments = doc.data().completedAssignments;
+        let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+        let mergeArray = completedAssignments;
+        mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
+
+        // Calculates and adds/removes points
+        const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
+        await addPoints(points, user.uid, assignment_id);
+
+        // Mark assignment
+        await db.collection("users").doc(user.uid).set({
+            completedAssignments: mergeArray,
+        }, { merge: true });
+        location.reload();
+    });
+};
+
 
 // Returns the points value of an assignment
 function getPoints(isCompleted, assignment_id, user_id) {
@@ -193,24 +185,24 @@ function calculatePoints(points, assignment_id) {
 
 // Adds/removes points to/from user accounts
 function addPoints(assignmentPoints, user_id, assignment_id) {
-    //Adding points
+    // Adding points
     db.collection("users").doc(user_id).set({
         points: firebase.firestore.FieldValue.increment(assignmentPoints),
     }, { merge: true }).catch((error) => {
         console.log("Error getting document:", error);
     });
-    //Storing added points in array
+
+    // Storing added points in array
     if (assignmentPoints > 0) {
-        firebase.auth().onAuthStateChanged(user => {
-            db.collection("users").doc(user.uid).get().then((doc) => {
-                const completedAssignments = doc.data().completedAssignments;
-                let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
-                completedAssignments[assignmentIndex].points = assignmentPoints;
-                return db.collection("users").doc(user_id).update({
-                    completedAssignments: completedAssignments
-                });
-            }, { merge: true }).catch((error) => {
-                console.log("Error getting document:", error);
+        console.log("Points > 0");
+        db.collection("users").doc(user_id).get().then((doc) => {
+            const completedAssignments = doc.data().completedAssignments;
+            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+            completedAssignments[assignmentIndex].points = assignmentPoints;
+            return db.collection("users").doc(user_id).update({
+                completedAssignments: completedAssignments
+            }).catch((error) => {
+                console.error("Error getting document:", error);
             });
         });
     }
