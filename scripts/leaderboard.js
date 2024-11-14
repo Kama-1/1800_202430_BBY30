@@ -1,4 +1,4 @@
-// Top 10 in an array
+// Array of top 10 users by points
 const top10Array = [];
 db.collection("users").orderBy("points", "desc").limit(10).get().then((user) => {
   user.forEach(doc => {
@@ -8,7 +8,7 @@ db.collection("users").orderBy("points", "desc").limit(10).get().then((user) => 
 });
 console.log(top10Array);
 
-// All users in an arry
+// All users put into an array for finding current user's ranking
 const totalArray = [];
 db.collection("users").orderBy("points", "desc").get().then((user) => {
   user.forEach(doc => {
@@ -18,7 +18,7 @@ db.collection("users").orderBy("points", "desc").get().then((user) => {
 });
 console.log(totalArray);
 
-// For global leaderboard; show up first when swapping to leaderboard tab
+// For global leaderboard; shows up first when swapping to leaderboard tab
 function leaderboard() {
   //Replace leaderboard template
   let tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
