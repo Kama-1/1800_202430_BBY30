@@ -60,4 +60,13 @@ var uiConfig = {
   // privacyPolicyUrl: '<your-privacy-policy-url>'
 };
 
+function logout() {
+  firebase.auth().signOut().then(() => {
+      // Sign-out successful.
+      console.log("logging out user");
+  }).catch((error) => {
+      // An error happened.
+  });
+}
+
 ui.start('#firebaseui-auth-container', uiConfig);
