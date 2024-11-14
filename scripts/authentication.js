@@ -68,5 +68,6 @@ function logout() {
       // An error happened.
   });
 }
-
-ui.start('#firebaseui-auth-container', uiConfig);
+function startUI() {
+  ui.start('#firebaseui-auth-container', uiConfig);
+}
