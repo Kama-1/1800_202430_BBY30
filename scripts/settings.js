@@ -20,18 +20,6 @@ function getWebsiteTheme() {
     });
 }
 
-function getShowCoursesOnStartup() {
-    firebase.auth().onAuthStateChanged(user => {
-        db.collection("users").doc(user.uid).get().then((doc) => {
-            if (doc.exists) {
-                document.getElementById("showCoursesOnStartup").checked = doc.data().course_list_startup;
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
-    });
-}
-
 function updateName() {
     firebase.auth().onAuthStateChanged(user => {
         let username = document.getElementById("changeName").value;
@@ -70,17 +58,6 @@ function updatePassword() {
     });
 }
 
-function updateShowCoursesOnStartup() {
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            const checkbox = document.getElementById("showCoursesOnStartup");
-            db.collection("users").doc(user.uid).set({
-                course_list_startup: checkbox.checked,
-            }, { merge: true })
-        }
-    });
-}
-
 function updateWebsiteTheme() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -93,4 +70,3 @@ function updateWebsiteTheme() {
 }
 getName();
 getWebsiteTheme();
-getShowCoursesOnStartup();
