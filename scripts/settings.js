@@ -10,6 +10,7 @@ function getName() {
 
 // Retrieve the user's website theme from firebase, and displays it as the selected setting
 function getWebsiteTheme() {
+    console.log("test");
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
             if (doc.exists) {

@@ -59,15 +59,5 @@ var uiConfig = {
   // tosUrl: '<your-tos-url>',
   // privacyPolicyUrl: '<your-privacy-policy-url>'
 };
+ui.start('#firebaseui-auth-container', uiConfig);
 
-function logout() {
-  firebase.auth().signOut().then(() => {
-      // Sign-out successful.
-      console.log("logging out user");
-  }).catch((error) => {
-      // An error happened.
-  });
-}
-function startUI() {
-  ui.start('#firebaseui-auth-container', uiConfig);
-}
