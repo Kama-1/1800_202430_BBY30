@@ -1,3 +1,4 @@
+// Adds newly created assignments to the user's assignment array in firebase
 function addAssignmentToUserArray(assignment_id) {
     const assignmentToAdd = {
         assignment_id: assignment_id,
@@ -16,7 +17,7 @@ function addAssignmentToUserArray(assignment_id) {
     })
 }
 
-
+// Creates a firebase new assignment with the given values
 function addAssignment() {
     const newTitle = document.getElementById("editTitle").value;
     const newTag = document.getElementById("editCourseTag").value;

@@ -192,7 +192,7 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
         console.log("Error getting document:", error);
     });
 
-    // Storing added points in array
+    // Stores added points in array
     if (assignmentPoints > 0) {
         console.log("Points > 0");
         db.collection("users").doc(user_id).get().then((doc) => {

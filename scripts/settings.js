@@ -1,3 +1,4 @@
+// Sets the user's name in settings to be their account name in firebase 
 function getName() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -7,6 +8,7 @@ function getName() {
     });
 }
 
+// Retrieve the user's website theme from firebase, and displays it as the selected setting
 function getWebsiteTheme() {
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
@@ -20,6 +22,7 @@ function getWebsiteTheme() {
     });
 }
 
+// Change the user's name in firebase to the new string they inputted
 function updateName() {
     firebase.auth().onAuthStateChanged(user => {
         let username = document.getElementById("changeName").value;
@@ -38,6 +41,7 @@ function updateName() {
     });
 }
 
+// Change the users password to the new password they inputted
 function updatePassword() {
     firebase.auth().onAuthStateChanged(user => {
         let newPassword = document.getElementById("newPassword").value;
@@ -58,6 +62,7 @@ function updatePassword() {
     });
 }
 
+// Change the users website theme to the value they selected
 function updateWebsiteTheme() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
