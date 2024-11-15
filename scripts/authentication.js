@@ -32,12 +32,25 @@ var uiConfig = {
             points: 0
           });
         }).then(function () {
-          window.location.assign("assignments.html");
+          if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
+            window.location.assign("admin.html");
+          } else {
+            window.location.assign("assignments.html");
+          }
         }).catch(function (error) {
           console.log("Error adding new user: " + error);
         });
       } else {
-        return true;
+        if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
+          window.location.assign("admin.html");
+        } else {
+          window.location.assign("assignments.html");
+        }
+      }
+      if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
+        window.location.assign("admin.html");
+      } else {
+        window.location.assign("assignments.html");
       }
       return false;
     },
@@ -46,7 +59,7 @@ var uiConfig = {
     }
   },
   signInFlow: 'popup',
-  signInSuccessUrl: "assignments.html",
+  // signInSuccessUrl: "assignments.html",
   signInOptions: [
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
     //   firebase.auth.GoogleAuthProvider.PROVIDER_ID,
