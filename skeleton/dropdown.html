@@ -1,23 +1,16 @@
-<head>
-  <style>
-    .btn-group {
-      min-width: 200px;
-    }
-  </style>
-</head>
-
 <div class="btn-group">
   <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
     aria-expanded="false">
     Courses
   </button>
-  <ul class="dropdown-menu" onchange="leaderboardUpdater">
-    <button id="1800" class="dropdown-item" type="button">COMP1100</button>
-    <button id="1510" class="dropdown-item" type="button">COMM1116</button>
-    <button id="1113" class="dropdown-item" type="button">COMP1113</button>
-    <button id="1113" class="dropdown-item" type="button">COMP1510</button>
-    <button id="1113" class="dropdown-item" type="button">COMP1537</button>
-    <button id="1113" class="dropdown-item" type="button">COMP1712</button>
-    <button id="1113" class="dropdown-item" type="button">COMP1800</button>
+  <ul class="dropdown-menu">
+    <button id="showAll" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('showAll')">Show All</button>
+    <button id="1100" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMP1100')">COMP1100</button>
+    <button id="1116" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMM1116')"">COMM1116</button>
+    <button id="1113" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMP1113')"">COMP1113</button>
+    <button id="1510" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMP1510')"">COMP1510</button>
+    <button id="1537" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMP1537')"">COMP1537</button>
+    <button id="1712" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMP1712')"">COMP1712</button>
+    <button id="1800" class="dropdown-item" type="button" onclick="sortAssignmentsByDropdown('COMP1800')"">COMP1800</button>
   </ul>
 </div>
