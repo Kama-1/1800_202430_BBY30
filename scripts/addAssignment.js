@@ -14,7 +14,13 @@ function addAssignmentToUserArray(assignment_id) {
                 completedAssignments: assignmentsArray,
             }, {merge: true})
         })
+    }).then(() => {
+        document.getElementById("add-assignment-confirmation").innerHTML = "Adding assignment for all users...";
+        setTimeout(() => {
+            location.href ='admin.html';
+        }, 2000);
     })
+    
 }
 
 // Creates a firebase new assignment with the given values
@@ -33,10 +39,7 @@ function addAssignment() {
         users_completed: 0,
     }, { merge: true })
     .then(() => {
-        addAssignmentToUserArray(newTitle)
-        setTimeout(() => {
-            location.href = 'assignments.html';
-        }, 250); 
+        addAssignmentToUserArray(newTitle);
     })
 }
 
