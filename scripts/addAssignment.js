@@ -24,7 +24,6 @@ function addAssignment() {
     const newPoints = document.getElementById("editPoints").value;
     const newDescription = document.getElementById("editDescription").value;
     const newDueDate = firebase.firestore.Timestamp.fromDate(new Date(document.getElementById("editDueDate").value));
-    console.log(newPoints);
     db.collection("assignments").doc(newTitle).set({
         title: newTitle,
         course_tag: newTag,

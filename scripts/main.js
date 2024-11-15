@@ -178,7 +178,6 @@ function calculatePoints(points, assignment_id) {
         const diffInDays = (dueDate - currentDate) / (1000 * 60 * 60 * 24);
         //Points calculation formula
         const multiplier = 1 + (diffInDays / 10);
-        // console.log(Math.round(points * multiplier));
         return Math.round(points * multiplier);
     });
 }
@@ -194,7 +193,6 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
 
     // Stores added points in array
     if (assignmentPoints > 0) {
-        console.log("Points > 0");
         db.collection("users").doc(user_id).get().then((doc) => {
             const completedAssignments = doc.data().completedAssignments;
             let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
