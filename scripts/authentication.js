@@ -21,6 +21,7 @@ async function initializeUserAssignmentArray() {
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      console.log("testing");
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
         initializeUserAssignmentArray().then(assignmentArray => {
@@ -40,17 +41,9 @@ var uiConfig = {
         }).catch(function (error) {
           console.log("Error adding new user: " + error);
         });
-      } else {
-        if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
-          window.location.assign("admin.html");
-        } else {
-          window.location.assign("assignments.html");
-        }
       }
       if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
         window.location.assign("admin.html");
-      } else {
-        window.location.assign("assignments.html");
       }
       return false;
     },
@@ -59,7 +52,7 @@ var uiConfig = {
     }
   },
   signInFlow: 'popup',
-  // signInSuccessUrl: "assignments.html",
+  signInSuccessUrl: "assignments.html",
   signInOptions: [
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
     //   firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -73,4 +66,3 @@ var uiConfig = {
   // privacyPolicyUrl: '<your-privacy-policy-url>'
 };
 ui.start('#firebaseui-auth-container', uiConfig);
-
