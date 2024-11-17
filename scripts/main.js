@@ -71,6 +71,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
                     newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')"); 
                     newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
+                    newcard.querySelector('.assignment').setAttribute("id", doc.id);
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
                     var saved_checkmark = newcard.querySelector('.checkbox');
@@ -80,7 +81,6 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     firebase.auth().onAuthStateChanged(user => {
                         if (user) {
                             const assignment_id = doc.id;
-                            console.log(assignment_id);
                             const user_id = user.uid;
 
                             db.collection("users").doc(user_id).get().then(doc => {
@@ -126,15 +126,11 @@ const is_bookmarked = (assignment_id) => {
                 completedAssignments: mergeArray,
             }, { merge: true });
             //Adjust if needed
-        }).then(() => {
-            setTimeout(() => {
-                location.reload();
-            }, 500);
         });
     })
 }
 
-const is_checked = (assignment_id) => {
+function is_checked(assignment_id) {
 
     firebase.auth().onAuthStateChanged(async (user) => {
         const doc = await db.collection("users").doc(user.uid).get();
@@ -144,15 +140,23 @@ const is_checked = (assignment_id) => {
         let mergeArray = completedAssignments;
         mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
 
+        // Changes the style when the user checks an assignment
+        if(mergeArray[assignmentIndex].isCompleted){
+            document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
+        }
+        else{
+            document.getElementById(assignment_id).setAttribute("class", "assignment");
+        }
+
         // Calculates and adds/removes points
         const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
-        await addPoints(points, user.uid, assignment_id);
+        await addPoints(points, user.uid, assignment_id);            
 
         // Mark assignment
         await db.collection("users").doc(user.uid).set({
             completedAssignments: mergeArray,
         }, { merge: true });
-        location.reload();
+
     });
 };
 
