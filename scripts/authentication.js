@@ -21,7 +21,6 @@ async function initializeUserAssignmentArray() {
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-      console.log("testing");
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
         initializeUserAssignmentArray().then(assignmentArray => {
@@ -44,9 +43,8 @@ var uiConfig = {
       }
       if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
         window.location.assign("admin.html");
-        return false;
       }
-      return true;
+      return false;
     },
     uiShown: function () {
       document.getElementById('loader').style.display = 'none';
