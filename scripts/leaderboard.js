@@ -88,7 +88,7 @@ function leaderboardUpdater() {
       let row = tableTemplate.insertRow();
       row.insertCell(0).textContent = rank++;
       row.insertCell(1).textContent = data.name;
-      row.insertCell(2).textContent = data.points;
+      row.insertCell(2).textContent = data.points;  
     })
   );
 }
