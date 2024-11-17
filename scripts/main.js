@@ -69,7 +69,8 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                     newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
-                    newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
+                    newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')"); 
+                    newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id, "is_checked()");
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
                     var saved_checkmark = newcard.querySelector('.checkbox');
@@ -79,6 +80,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     firebase.auth().onAuthStateChanged(user => {
                         if (user) {
                             const assignment_id = doc.id;
+                            console.log(assignment_id);
                             const user_id = user.uid;
 
                             db.collection("users").doc(user_id).get().then(doc => {
@@ -212,4 +214,11 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
             });
         });
     }
+}
+
+// Update assignment count based on if user checked or unchecked box
+function updateUsersCompleted(assignment_id, isComplete) {
+    db.collection("assignments").doc(assignment_id).update({
+        users_completed: firebase.firestore.FieldValue.increment(isComplete ? 1 : -1)
+    })
 }
