@@ -72,14 +72,3 @@ firebase.auth().onAuthStateChanged(function (user) {
     console.log("No user is signed in.");
   }
 });
-
-
-let user = "aIEd00kUI7dDo59QW3Vnm92ZMDI2";
-function checkCompleted(user_id) {
-  db.collection("users").doc(user_id).get().then((doc) => {
-    const userArray = doc.data()[0];
-    const isComplete = userArray[isCompleted].
-    console.log(isComplete);
-  });  
-}
-checkCompleted(user);
