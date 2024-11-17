@@ -77,29 +77,32 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 
                     // If the assignment is completed or is bookmarked for the authenticated user
                     firebase.auth().onAuthStateChanged(user => {
-                        const assignment_id = doc.id;
-                        const user_id = user.uid;
+                        if (user) {
+                            const assignment_id = doc.id;
+                            const user_id = user.uid;
 
-                        db.collection("users").doc(user_id).get().then(doc => {
-                            const completedAssignments = doc.data().completedAssignments;
-                            for (item of completedAssignments) {
-                                if (item.assignment_id === assignment_id && item.isCompleted) {
-                                    completed_assignment_style.setAttribute("class", "assignment assignment-completed")
-                                    saved_checkmark.setAttribute("checked", "checked");
-                                }
-                                if (displayBookmarkedAssignments) { // Only display completed assignments
-                                    if (item.assignment_id === assignment_id && item.isBookmarked) {
-                                        saved_bookmark.setAttribute("checked", "checked");
-                                        document.getElementById("assignments-go-here").appendChild(newcard);
+                            db.collection("users").doc(user_id).get().then(doc => {
+                                const completedAssignments = doc.data().completedAssignments;
+                                for (item of completedAssignments) {
+                                    if (item.assignment_id === assignment_id && item.isCompleted) {
+                                        completed_assignment_style.setAttribute("class", "assignment assignment-completed")
+                                        saved_checkmark.setAttribute("checked", "checked");
                                     }
-                                } else { // Only display incompleted assignments
-                                    if (item.assignment_id === assignment_id && !item.isBookmarked) {
-                                        document.getElementById("assignments-go-here").appendChild(newcard);
+                                    if (displayBookmarkedAssignments) { // Only display completed assignments
+                                        if (item.assignment_id === assignment_id && item.isBookmarked) {
+                                            saved_bookmark.setAttribute("checked", "checked");
+                                            document.getElementById("assignments-go-here").appendChild(newcard);
+                                        }
+                                    } else { // Only display incompleted assignments
+                                        if (item.assignment_id === assignment_id && !item.isBookmarked) {
+                                            document.getElementById("assignments-go-here").appendChild(newcard);
+                                        }
                                     }
-                                }
 
-                            }
-                        })
+                                }
+                            })
+                        }
+
                     });
                 }
             })

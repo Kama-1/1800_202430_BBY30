@@ -40,11 +40,13 @@ var uiConfig = {
         }).catch(function (error) {
           console.log("Error adding new user: " + error);
         });
+        return false;
       }
       if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
         window.location.assign("admin.html");
+        return false;
       }
-      return false;
+      return true;
     },
     uiShown: function () {
       document.getElementById('loader').style.display = 'none';
