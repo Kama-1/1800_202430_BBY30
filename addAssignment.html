@@ -71,21 +71,22 @@
                 <br>
                 <input type="date" class="w-100" id="editDueDate">
             </div>
+            <!-- Displays that assignment is being added to all users -->
+            <h3 id="add-assignment-confirmation"></h3>
             <!-- Confirm -->
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
                 onclick="addAssignment();">Add Assignment</button>
             <!-- Cancel -->
             <button class="btn btn-primary btn-sm rounded w-100 form-group fs-3" type="button"
-                onclick="location.href='settings.html';">Cancel</button>
+                onclick="location.href='admin.html';">Cancel</button>
         </form>
     </div>
-    <!-- Navigation bar-->
-    <div id="navbar"></div>
     <!-- <script src="./scripts/authentication.js"></script> -->
     <script src="./scripts/firebaseAPI_TEAM30.js"></script>
     <script src="./scripts/skeleton.js"></script>
     <script src="./scripts/script.js"></script>
-    <script src="./scripts/addAssignment.js"></script>
+    <script src="./scripts/admin.js"></script>
+    <script>fillPage()</script>
 </body>
 
 </html>

@@ -21,6 +21,7 @@ async function initializeUserAssignmentArray() {
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      console.log("testing");
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
         initializeUserAssignmentArray().then(assignmentArray => {
@@ -32,12 +33,17 @@ var uiConfig = {
             points: 0
           });
         }).then(function () {
-          window.location.assign("assignments.html");
+          if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
+            window.location.assign("admin.html");
+          } else {
+            window.location.assign("assignments.html");
+          }
         }).catch(function (error) {
           console.log("Error adding new user: " + error);
         });
-      } else {
-        return true;
+      }
+      if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
+        window.location.assign("admin.html");
       }
       return false;
     },
@@ -59,5 +65,5 @@ var uiConfig = {
   // tosUrl: '<your-tos-url>',
   // privacyPolicyUrl: '<your-privacy-policy-url>'
 };
-
 ui.start('#firebaseui-auth-container', uiConfig);
+
