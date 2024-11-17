@@ -20,7 +20,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     var points = doc.data().points;
                     var users_completed = doc.data().users_completed;
 
-                    var due_date = doc.data().due_date; 
+                    var due_date = doc.data().due_date;
                     var date = due_date.toDate();
                     var day = date.getDate();
                     var month = date.getMonth() + 1;
@@ -73,7 +73,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                     newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
-                    newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')"); 
+                    newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
                     newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
                     newcard.querySelector('.assignment').setAttribute("id", doc.id);
 
@@ -122,7 +122,7 @@ displayAssignmentsDynamically(true); // Displays bookmarked assignments
 displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
 
 // Updates the firebase if a user bookmarks an assignment
-function is_bookmarked (assignment_id) {
+function is_bookmarked(assignment_id) {
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
             const completedAssignments = doc.data().completedAssignments;
@@ -150,7 +150,7 @@ function is_checked(assignment_id) {
 
         // Calculates and adds/removes points
         const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
-        await addPoints(points, user.uid, assignment_id);            
+        await addPoints(points, user.uid, assignment_id);
 
         // Mark assignment
         await db.collection("users").doc(user.uid).set({
@@ -158,10 +158,10 @@ function is_checked(assignment_id) {
         }, { merge: true });
 
         // Changes the style when the user checks an assignment
-        if(mergeArray[assignmentIndex].isCompleted){
+        if (mergeArray[assignmentIndex].isCompleted) {
             document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
         }
-        else{
+        else {
             document.getElementById(assignment_id).setAttribute("class", "assignment");
         }
     });

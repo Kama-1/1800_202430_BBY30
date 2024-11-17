@@ -24,7 +24,7 @@ leaderboard();
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     const userUID = user.uid;
-    
+
     // All users put into an array for finding current user's ranking
     const totalArray = [];
     db.collection("users").orderBy("points", "desc").get().then((user) => {
@@ -35,7 +35,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
     // Get top 10 users from firebase
     db.collection("users").orderBy("points", "desc").limit(10).get().then((top10) => {
-      
+
       // Array of top 10
       const top10Array = [];
       top10.forEach(doc => {

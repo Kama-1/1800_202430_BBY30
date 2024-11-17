@@ -80,7 +80,7 @@ async function fillUpdateInfo(assignment_id) {
     localStorage.setItem("editPoints", doc.data().points);
     localStorage.setItem("editDescription", doc.data().description);
     localStorage.setItem("editDueDate", doc.data().due_date.toDate().toISOString().split("T")[0]);
-    location.href='addAssignment.html';
+    location.href = 'addAssignment.html';
   }).catch((error) => {
     console.log("Document not found", error);
   });

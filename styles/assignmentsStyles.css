@@ -1,6 +1,8 @@
-html, body {
+html,
+body {
     margin: 0;
-    padding-bottom: 8vh; /* Fixes navbar overlap. Might need adjustment later. */
+    padding-bottom: 8vh;
+    /* Fixes navbar overlap. Might need adjustment later. */
 }
 
 .heading {

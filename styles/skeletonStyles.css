@@ -2,27 +2,31 @@
 #navBar {
     background-color: darkgray;
     padding-top: 3vh;
-    justify-content: space-around; 
+    justify-content: space-around;
 }
+
 .nav-item {
     text-decoration: none;
     color: inherit;
 }
+
 .nav-item img {
     min-height: 4%;
     max-height: 4vh;
 }
+
 #navBar p {
     text-align: center;
-    font-size: 1rem; 
+    font-size: 1rem;
 }
+
 img {
     display: block;
     margin: 0 auto;
 }
 
 /* Assignment Instance */
-.assignment{
+.assignment {
     width: 90%;
     height: 8em;
     margin: 2em auto;
@@ -33,9 +37,9 @@ img {
     grid-template-rows: 1fr 1fr 1fr;
 }
 
-.assignment-completed{
+.assignment-completed {
     background-color: rgb(236, 236, 236);
-    color:rgb(193, 195, 196)
+    color: rgb(193, 195, 196)
 }
 
 .assignment-completed img {
@@ -107,12 +111,12 @@ img {
     grid-template-columns: 1fr 1fr;
 }
 
-.bottom-row > p {
+.bottom-row>p {
     margin: 1em auto auto 0
 }
 
 .amount-completed {
-        margin: 1em 0 0 auto;
+    margin: 1em 0 0 auto;
 }
 
 .amount-completed img {
@@ -134,11 +138,12 @@ img {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
 /* Added to keep headings consistent */
 .heading {
-  text-align: center;
-  background-color: darkgray;
-  padding: 1em 1em;
+    text-align: center;
+    background-color: darkgray;
+    padding: 1em 1em;
 }
 
 .btn-group {

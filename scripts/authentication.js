@@ -1,9 +1,9 @@
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-
+// Initialized assignment array in new user's document
 async function initializeUserAssignmentArray() {
   let assignmentArray = [];
-  
+
   const assignmentSnapshot = await db.collection("assignments").get();
   assignmentSnapshot.forEach(doc => {
     const item = {
@@ -14,10 +14,11 @@ async function initializeUserAssignmentArray() {
     };
     assignmentArray.push(item);
   });
-  
+
   return assignmentArray;
 }
 
+// Authenticates users  
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {

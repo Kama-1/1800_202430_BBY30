@@ -35,8 +35,10 @@
             <div class="top-row">
                 <p class="title-here">Assignment Title</p>
                 <p class="points-here">Points</p>
-                <input type="checkbox" class="bookmark" onclick="fillUpdateInfo(this.parentElement.querySelector('.title-here').innerHTML)">
-                <input type="checkbox" class="checkbox" onclick="deleteAssignment(this.parentElement.querySelector('.title-here').innerHTML)">
+                <input type="checkbox" class="bookmark"
+                    onclick="fillUpdateInfo(this.parentElement.querySelector('.title-here').innerHTML)">
+                <input type="checkbox" class="checkbox"
+                    onclick="deleteAssignment(this.parentElement.querySelector('.title-here').innerHTML)">
             </div>
             <div class="assignment-tag">
                 <p class="course-tag-here">COMP 1800</p>
@@ -58,20 +60,20 @@
     <div id="top-bar">
         <div class="btn-group, drop-down">
             <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Courses
+                aria-expanded="false">
+                Courses
             </button>
             <ul class="dropdown-menu">
-              <a id="showAll" class="dropdown-item" type="button" href="admin.html">Show All</a>
-              <a id="1100" class="dropdown-item" type="button" href="admin.html?sort=COMP1100">COMP1100</a>
-              <a id="1116" class="dropdown-item" type="button" href="admin.html?sort=COMM1116">COMM1116</a>
-              <a id="1113" class="dropdown-item" type="button" href="admin.html?sort=COMP1113">COMP1113</a>
-              <a id="1510" class="dropdown-item" type="button" href="admin.html?sort=COMP1510">COMP1510</a>
-              <a id="1537" class="dropdown-item" type="button" href="admin.html?sort=COMP1537">COMP1537</a>
-              <a id="1712" class="dropdown-item" type="button" href="admin.html?sort=COMP1712">COMP1712</a>
-              <a id="1800" class="dropdown-item" type="button" href="admin.html?sort=COMP1800">COMP1800</a>
+                <a id="showAll" class="dropdown-item" type="button" href="admin.html">Show All</a>
+                <a id="1100" class="dropdown-item" type="button" href="admin.html?sort=COMP1100">COMP1100</a>
+                <a id="1116" class="dropdown-item" type="button" href="admin.html?sort=COMM1116">COMM1116</a>
+                <a id="1113" class="dropdown-item" type="button" href="admin.html?sort=COMP1113">COMP1113</a>
+                <a id="1510" class="dropdown-item" type="button" href="admin.html?sort=COMP1510">COMP1510</a>
+                <a id="1537" class="dropdown-item" type="button" href="admin.html?sort=COMP1537">COMP1537</a>
+                <a id="1712" class="dropdown-item" type="button" href="admin.html?sort=COMP1712">COMP1712</a>
+                <a id="1800" class="dropdown-item" type="button" href="admin.html?sort=COMP1800">COMP1800</a>
             </ul>
-          </div>
+        </div>
         <a id="add-assignment">
             <img onclick="location.href='addAssignment.html';" src="./images/plus.png">
         </a>
