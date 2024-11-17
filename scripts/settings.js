@@ -11,14 +11,17 @@ function getName() {
 // Retrieve the user's website theme from firebase, and displays it as the selected setting
 function getWebsiteTheme() {
     firebase.auth().onAuthStateChanged(user => {
-        db.collection("users").doc(user.uid).get().then((doc) => {
-            if (doc.exists) {
-                const websiteTheme = doc.data().website_theme;
-                document.getElementById("websiteTheme").value = websiteTheme; 
-            }
-        }).catch((error) => {
-            console.log("Error getting document:", error);
-        });
+        if (user) {
+            db.collection("users").doc(user.uid).get().then((doc) => {
+                if (doc.exists) {
+                    const websiteTheme = doc.data().website_theme;
+                    document.getElementById("websiteTheme").value = websiteTheme;
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
+        }
+
     });
 }
 
@@ -69,5 +72,14 @@ function updateWebsiteTheme() {
         }
     });
 }
-getName();
-getWebsiteTheme();
+
+// Retrieves firebase settings when page is opened
+window.onload = function () {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            getName();
+            getWebsiteTheme();
+        }
+    });
+
+}

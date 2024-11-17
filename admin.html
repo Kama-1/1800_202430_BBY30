@@ -35,8 +35,8 @@
             <div class="top-row">
                 <p class="title-here">Assignment Title</p>
                 <p class="points-here">Points</p>
-                <input type="checkbox" class="bookmark" onchange="">
-                <input type="checkbox" class="checkbox" onchange="">
+                <input type="checkbox" class="bookmark" onclick="fillUpdateInfo(this.parentElement.querySelector('.title-here').innerHTML)">
+                <input type="checkbox" class="checkbox" onclick="deleteAssignment(this.parentElement.querySelector('.title-here').innerHTML)">
             </div>
             <div class="assignment-tag">
                 <p class="course-tag-here">COMP 1800</p>
@@ -84,6 +84,7 @@
     <script src="./scripts/skeleton.js"></script>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/admin.js"></script>
 </body>
 
 </html>

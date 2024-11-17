@@ -21,7 +21,6 @@ async function initializeUserAssignmentArray() {
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
-      console.log("testing");
       var user = authResult.user;
       if (authResult.additionalUserInfo.isNewUser) {
         initializeUserAssignmentArray().then(assignmentArray => {
@@ -33,7 +32,7 @@ var uiConfig = {
             points: 0
           });
         }).then(function () {
-          if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
+          if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
             window.location.assign("admin.html");
           } else {
             window.location.assign("assignments.html");
@@ -41,11 +40,13 @@ var uiConfig = {
         }).catch(function (error) {
           console.log("Error adding new user: " + error);
         });
+        return false;
       }
-      if (user.uid === "TxhKfWCbSSeZtxknU06K0hinR1p2") {
+      if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
         window.location.assign("admin.html");
+        return false;
       }
-      return false;
+      return true;
     },
     uiShown: function () {
       document.getElementById('loader').style.display = 'none';

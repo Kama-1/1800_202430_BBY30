@@ -69,7 +69,8 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                     newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
-                    newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
+                    newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')"); 
+                    newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
                     var saved_checkmark = newcard.querySelector('.checkbox');
@@ -77,29 +78,33 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 
                     // If the assignment is completed or is bookmarked for the authenticated user
                     firebase.auth().onAuthStateChanged(user => {
-                        const assignment_id = doc.id;
-                        const user_id = user.uid;
+                        if (user) {
+                            const assignment_id = doc.id;
+                            console.log(assignment_id);
+                            const user_id = user.uid;
 
-                        db.collection("users").doc(user_id).get().then(doc => {
-                            const completedAssignments = doc.data().completedAssignments;
-                            for (item of completedAssignments) {
-                                if (item.assignment_id === assignment_id && item.isCompleted) {
-                                    completed_assignment_style.setAttribute("class", "assignment assignment-completed")
-                                    saved_checkmark.setAttribute("checked", "checked");
-                                }
-                                if (displayBookmarkedAssignments) { // Only display completed assignments
-                                    if (item.assignment_id === assignment_id && item.isBookmarked) {
-                                        saved_bookmark.setAttribute("checked", "checked");
-                                        document.getElementById("assignments-go-here").appendChild(newcard);
+                            db.collection("users").doc(user_id).get().then(doc => {
+                                const completedAssignments = doc.data().completedAssignments;
+                                for (item of completedAssignments) {
+                                    if (item.assignment_id === assignment_id && item.isCompleted) {
+                                        completed_assignment_style.setAttribute("class", "assignment assignment-completed")
+                                        saved_checkmark.setAttribute("checked", "checked");
                                     }
-                                } else { // Only display incompleted assignments
-                                    if (item.assignment_id === assignment_id && !item.isBookmarked) {
-                                        document.getElementById("assignments-go-here").appendChild(newcard);
+                                    if (displayBookmarkedAssignments) { // Only display completed assignments
+                                        if (item.assignment_id === assignment_id && item.isBookmarked) {
+                                            saved_bookmark.setAttribute("checked", "checked");
+                                            document.getElementById("assignments-go-here").appendChild(newcard);
+                                        }
+                                    } else { // Only display incompleted assignments
+                                        if (item.assignment_id === assignment_id && !item.isBookmarked) {
+                                            document.getElementById("assignments-go-here").appendChild(newcard);
+                                        }
                                     }
-                                }
 
-                            }
-                        })
+                                }
+                            })
+                        }
+
                     });
                 }
             })
@@ -209,4 +214,11 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
             });
         });
     }
+}
+
+// Update assignment count based on if user checked or unchecked box
+function updateUsersCompleted(assignment_id, isComplete) {
+    db.collection("assignments").doc(assignment_id).update({
+        users_completed: firebase.firestore.FieldValue.increment(isComplete ? 1 : -1) // conditional to be used later when i can read the array
+    })
 }
