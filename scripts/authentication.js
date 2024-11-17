@@ -44,8 +44,9 @@ var uiConfig = {
       }
       if (user.uid === "IqWtROQdFQhB9mqCk8OIQAEWwr73") {
         window.location.assign("admin.html");
+        return false;
       }
-      return false;
+      return true;
     },
     uiShown: function () {
       document.getElementById('loader').style.display = 'none';
