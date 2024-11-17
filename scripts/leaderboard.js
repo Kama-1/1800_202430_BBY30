@@ -23,8 +23,7 @@ leaderboard();
 // Checks if user's in top 10, or else put them at bottom
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    const uid = user.uid;
-    console.log("User: " + uid);
+    const userUID = user.uid;
     
     // All users put into an array for finding current user's ranking
     const totalArray = [];
@@ -33,7 +32,6 @@ firebase.auth().onAuthStateChanged(function (user) {
         totalArray.push({ uid: doc.id });
       });
     });
-    console.log(totalArray.findIndex(user => user.uid === uid));
 
     // Get top 10 users from firebase
     db.collection("users").orderBy("points", "desc").limit(10).get().then((top10) => {
@@ -44,9 +42,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         let student = { uid: doc.id };
         top10Array.push(student);
       });
-      let isUserTop10 = top10Array.some(user => user.uid === uid);
+      let isUserTop10 = top10Array.some(user => user.uid === userUID);
 
-      db.collection("users").doc(uid).get().then((doc) => {
+      db.collection("users").doc(userUID).get().then((doc) => {
         if (doc.exists) {
           const data = doc.data();
           console.log("User Data:", data);
@@ -55,7 +53,7 @@ firebase.auth().onAuthStateChanged(function (user) {
           if (!isUserTop10) {
             let tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
             const row = tableTemplate.insertRow();
-            row.insertCell(0).textContent = totalArray.findIndex(user => user.uid === uid) + 1; // Global rank
+            row.insertCell(0).textContent = totalArray.findIndex(user => user.uid === userUID) + 1; // Global rank
             row.insertCell(1).textContent = data.name;
             row.insertCell(2).textContent = data.points;
           }
@@ -75,3 +73,13 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 });
 
+
+let user = "aIEd00kUI7dDo59QW3Vnm92ZMDI2";
+function checkCompleted(user_id) {
+  db.collection("users").doc(user_id).get().then((doc) => {
+    const userArray = doc.data()[0];
+    const isComplete = userArray[isCompleted].
+    console.log(isComplete);
+  });  
+}
+checkCompleted(user);
