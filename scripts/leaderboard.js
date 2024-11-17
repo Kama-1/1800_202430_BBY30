@@ -47,8 +47,6 @@ firebase.auth().onAuthStateChanged(function (user) {
       db.collection("users").doc(userUID).get().then((doc) => {
         if (doc.exists) {
           const data = doc.data();
-          console.log("User Data:", data);
-
           // If not top10, place at the bottom of the leaderboard
           if (!isUserTop10) {
             let tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
