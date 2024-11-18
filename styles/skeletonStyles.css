@@ -150,12 +150,6 @@ img {
     min-width: 200px;
 }
 
-#top-bar {
-    display: grid;
-    margin-top: 2%;
-    grid-template-columns: 1fr 1fr;
-}
-
 #dropdown {
     width: 50vw;
     margin: auto;
@@ -164,6 +158,10 @@ img {
 
 #leaderboardDropDown {
     margin-left: 50%;
+}
+
+.dropdown-menu {
+    width: 50vw;
 }
 
 .btn-group {
