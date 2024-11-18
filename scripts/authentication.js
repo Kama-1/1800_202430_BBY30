@@ -14,7 +14,6 @@ async function initializeUserAssignmentArray() {
     };
     assignmentArray.push(item);
   });
-  
   return assignmentArray;
 }
 

@@ -5,8 +5,8 @@ db.collection("users").orderBy("points", "desc").limit(10).get().then((user) => 
     let student = { uid: doc.id };
     top10Array.push(student);
   });
+  console.log(top10Array.push());
 });
-console.log(top10Array);
 
 // All users put into an array for finding current user's ranking
 const totalArray = [];
@@ -43,21 +43,22 @@ leaderboard();
 // Checks if user's in top 10, or else put them at bottom
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    const uid = user.uid;
-    console.log("User:" + uid);
-    let isUserTop10 = top10Array.some(user => user.uid === uid);
-    console.log("test:" + isUserTop10);
+    const useruid = user.uid;
+    console.log(top10Array.push());
+    console.log(typeof user.uid, user.uid);
+    const isUserTop10 = top10Array.some(user => user.uid === user.uid); // Looks through the array of top 10 users to see if current user is inside
+    console.log(isUserTop10);
 
-    db.collection("users").doc(uid).get().then((doc) => {
+    db.collection("users").doc(useruid).get().then((doc) => {
       if (doc.exists) {
         // If the document exists, get the data
         const data = doc.data();
         console.log("User Data:", data);
 
         if (!isUserTop10) {
-          let tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
+          const tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
           const row = tableTemplate.insertRow();
-          row.insertCell(0).textContent = totalArray.findIndex(user => user.uid === uid) + 1;
+          row.insertCell(0).textContent = totalArray.findIndex(user => user.uid === useruid) + 1; // add one to account for index 0
           row.insertCell(1).textContent = data.name;
           row.insertCell(2).textContent = data.points;
         }
