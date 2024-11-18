@@ -90,6 +90,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                             db.collection("users").doc(user_id).get().then(doc => {
 
                                 const completedAssignments = doc.data().completedAssignments;
+
                                 for (item of completedAssignments) {
 
                                     if (item.assignment_id === assignment_id && item.isCompleted) {
@@ -228,8 +229,21 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
 }
 
 // Update assignment count based on if user checked or unchecked box
-function updateUsersCompleted(assignment_id, isComplete) {
-    db.collection("assignments").doc(assignment_id).update({
-        users_completed: firebase.firestore.FieldValue.increment(isComplete ? 1 : -1) // conditional to be used later when i can read the array
+async function updateUsersCompleted(assignment_id) {
+    firebase.auth().onAuthStateChanged((user) => {
+        db.collection("users").doc(user.uid).get().then((doc) => {
+            const completedAssignments = doc.data().completedAssignments;
+            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+            let mergeArray = completedAssignments;
+            mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
+            console.log(mergeArray);
+
+            for (item of mergeArray) {
+                db.collection("assignments").doc(assignment_id).update({
+                    users_completed: firebase.firestore.FieldValue.increment(1)
+                })
+
+            }
+        })
     })
 }

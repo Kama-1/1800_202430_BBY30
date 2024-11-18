@@ -66,9 +66,14 @@ function updateWebsiteTheme() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             const theme = document.getElementById("websiteTheme").value;
+            console.log(theme);
             db.collection("users").doc(user.uid).set({
                 website_theme: theme,
             }, { merge: true })
+            if (theme === "dark") {
+                htmlBody = document.body;
+                htmlBody.classList.toggle("dark-mode");
+            } 
         }
     });
 }
@@ -83,3 +88,20 @@ window.onload = function () {
     });
 
 }
+
+function checkDarkMode() {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            const theme = document.getElementById("websiteTheme").value;
+            console.log(theme);
+            db.collection("users").doc(user.uid).set({
+                website_theme: theme,
+            }, { merge: true })
+            if (theme === "dark") {
+                htmlBody = document.body;
+                htmlBody.classList.toggle("dark-mode");
+            } 
+        }
+    });
+}
+checkDarkMode();

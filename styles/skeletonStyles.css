@@ -171,3 +171,8 @@ img {
 .btn-group {
     min-width: 200px;
 }
+
+.dark-mode {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}

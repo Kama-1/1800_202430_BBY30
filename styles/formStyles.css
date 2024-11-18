@@ -1,8 +1,8 @@
 body {
     margin: 0;
-    padding-bottom: 15vh
+    padding-bottom: 15vh;
+    background-color: #DAD7CD;
         /* Fixes navbar overlap. Might need adjustment later. */
-    ;
 }
 
 #container {
@@ -14,6 +14,8 @@ body {
 
 .btn {
     margin: 1% 0% 1% 0%;
+    background-color: #3a5a40;
+    color: white;
 }
 
 #showCoursesOnStartup {
@@ -40,4 +42,25 @@ body {
 #add-assignment-confirmation {
     text-align: center;
     color: green;
+}
+
+/* Colours section */
+.btn {
+    background-color: #3a5a40;
+    color: white;
+}
+.btn:hover {
+    background-color: #3b7245;
+}
+
+.heading {
+    background-color: #588157;
+}
+
+#navBar {
+    background-color: #588157;
+}
+
+table {
+    background-color: blue;
 }
