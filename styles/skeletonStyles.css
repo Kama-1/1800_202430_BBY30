@@ -157,17 +157,16 @@ img {
 }
 
 #dropdown {
-    margin-left: 40%;
+    width: 50vw;
+    margin: auto;
 }
 
-.drop-down {
-    margin-left: 40%;
-}
 
 #leaderboardDropDown {
     margin-left: 50%;
 }
 
 .btn-group {
-    min-width: 200px;
+    width: 50vw;
+    margin:  1.5em auto;
 }
