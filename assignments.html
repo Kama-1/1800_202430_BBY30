@@ -4,9 +4,7 @@
 <head>
   <title>Assignments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="styles/skeletonStyles.css">
-  <link rel="stylesheet" type="text/css" href="styles/assignmentsStyles.css">
-
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -14,23 +12,29 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-    <!-- Firebase -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script> 
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+  <!-- Firebase -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="styles/skeletonStyles.css">
+  <link rel="stylesheet" type="text/css" href="styles/assignmentsStyles.css">
 
   <meta charset="UTF-8">
   <title>StudySprint</title>
 </head>
 
 <body>
+<div class="container">
+
+</div>
   <!-- Assignment Template  -->
   <template id="assignmentTemplate">
-    <div class="assignment">
+    <div class="assignment" id="assignment-id">
       <div class="top-row">
         <p class="title-here">Assignment Title</p>
         <p class="points-here">Points</p>
@@ -38,13 +42,13 @@
         <input type="checkbox" class="checkbox" onchange="">
       </div>
       <div class="assignment-tag">
-          <p class="course-tag-here">COMP 1800</p>
+        <p class="course-tag-here">COMP 1800</p>
       </div>
       <div class="bottom-row">
-          <p class="due-date-here">Due: Oct 28</p>
-          <div class="amount-completed">
-              <p><img src="/images/people.png"><span id="usersCompleted" class="users-completed-here">26/30</span></p>
-          </div>
+        <p class="due-date-here">Due: Oct 28</p>
+        <div class="amount-completed">
+          <p><img src="/images/people.png"><span id="usersCompleted" class="users-completed-here">26/30</span></p>
+        </div>
       </div>
     </div>
   </template>
@@ -53,13 +57,8 @@
   <div class="heading">
     <h1>Assignments</h1>
   </div>
-  <div id="top-bar">
-    <div id="dropdown"></div>
-    <a id="add-assignment">
-      <img src="./images/plus.png">
-    </a>
-  </div>
-    <div id="assignments-go-here" class="assignment-list"></div>
+  <div id="dropdown"></div>
+  <div id="assignments-go-here" class="assignment-list"></div>
 
   <!--    Navigation basr-->
   <div id="navbar"></div>

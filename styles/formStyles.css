@@ -1,22 +1,31 @@
 body {
     margin: 0;
-    padding-bottom: 15vh /* Fixes navbar overlap. Might need adjustment later. */;
+    padding-bottom: 15vh;
+    background-color: #DAD7CD;
+        /* Fixes navbar overlap. Might need adjustment later. */
 }
-#container  {
-    max-width: 1000px; 
+
+#container {
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0% 2%;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
 }
+
 .btn {
     margin: 1% 0% 1% 0%;
+    background-color: #3a5a40;
+    color: white;
 }
+
 #showCoursesOnStartup {
     margin-top: 1.5%;
 }
+
 .form-group {
     margin-top: 5%;
 }
+
 .switch {
     margin: 2% 0% 0% 0%;
 }
@@ -30,7 +39,28 @@ body {
     min-height: 8hv;
 }
 
-#add-assignment-confirmation{
+#add-assignment-confirmation {
     text-align: center;
     color: green;
+}
+
+/* Colours section */
+.btn {
+    background-color: #3a5a40;
+    color: white;
+}
+.btn:hover {
+    background-color: #3b7245;
+}
+
+.heading {
+    background-color: #588157;
+}
+
+#navBar {
+    background-color: #588157;
+}
+
+table {
+    background-color: blue;
 }

@@ -1,21 +1,26 @@
-
+/*
+Displays all assignments in the firebase assignments collection.
+Takes a boolean parameter displayBookmarkedAssignments that when true, will only display bookmarked assignments,
+if not, only non-bookmarked assignments will be displayed.
+This function will also sort by course tag if a url parameter is detected. 
+If no url course tag is detected, it will display all assignments.
+*/
 function displayAssignmentsDynamically(displayBookmarkedAssignments) {
     // Checks if the user is sorting courses through the dropdown
     let params = new URL(window.location.href);
     let course = params.searchParams.get("sort");
 
-    let cardTemplate = document.getElementById("assignmentTemplate"); // Retrieve the HTML element with the ID "hikeCardTemplate" and store it in the cardTemplate variable. 
+    let cardTemplate = document.getElementById("assignmentTemplate");
     db.collection("assignments").get()
         .then(assignment => {
             assignment.forEach(doc => { //iterate thru each doc
                 var course_tag = doc.data().course_tag;
-                if (course_tag == course || !course) {
+                if (course_tag == course || !course) { // If an assignments course tag == the url parameter
                     var title = doc.data().title;
                     var points = doc.data().points;
                     var users_completed = doc.data().users_completed;
-                    var total_users = 30; // TODO make this update to the # of authenticated users - 1 (-1 because the dev account shouldnt count)
 
-                    var due_date = doc.data().due_date; // TODO this does not get the correct date; the switch statement is correct, but this line is not
+                    var due_date = doc.data().due_date;
                     var date = due_date.toDate();
                     var day = date.getDate();
                     var month = date.getMonth() + 1;
@@ -60,9 +65,8 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                         default:
                             monthString = "null ";
                     }
-                    let newcard = cardTemplate.content.cloneNode(true); // Clone the HTML template to create a new card (newcard) that will be filled with Firestore data.
+                    let newcard = cardTemplate.content.cloneNode(true);
 
-                    //update title and text and image
                     newcard.querySelector('.title-here').innerHTML = title;
                     newcard.querySelector('.points-here').innerHTML = "+" + points;
                     newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
@@ -70,6 +74,8 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
                     newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
+                    newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
+                    newcard.querySelector('.assignment').setAttribute("id", doc.id);
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
                     var saved_checkmark = newcard.querySelector('.checkbox');
@@ -77,29 +83,36 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 
                     // If the assignment is completed or is bookmarked for the authenticated user
                     firebase.auth().onAuthStateChanged(user => {
-                        const assignment_id = doc.id;
-                        const user_id = user.uid;
+                        if (user) {
+                            const assignment_id = doc.id;
+                            const user_id = user.uid;
 
-                        db.collection("users").doc(user_id).get().then(doc => {
-                            const completedAssignments = doc.data().completedAssignments;
-                            for (item of completedAssignments) {
-                                if (item.assignment_id === assignment_id && item.isCompleted) {
-                                    completed_assignment_style.setAttribute("class", "assignment assignment-completed")
-                                    saved_checkmark.setAttribute("checked", "checked");
-                                }
-                                if (displayBookmarkedAssignments) { // Only display completed assignments
-                                    if (item.assignment_id === assignment_id && item.isBookmarked) {
-                                        saved_bookmark.setAttribute("checked", "checked");
-                                        document.getElementById("assignments-go-here").appendChild(newcard);
-                                    }
-                                } else { // Only display incompleted assignments
-                                    if (item.assignment_id === assignment_id && !item.isBookmarked) {
-                                        document.getElementById("assignments-go-here").appendChild(newcard);
-                                    }
-                                }
+                            db.collection("users").doc(user_id).get().then(doc => {
 
-                            }
-                        })
+                                const completedAssignments = doc.data().completedAssignments;
+
+                                for (item of completedAssignments) {
+
+                                    if (item.assignment_id === assignment_id && item.isCompleted) {
+                                        completed_assignment_style.setAttribute("class", "assignment assignment-completed")
+                                        saved_checkmark.setAttribute("checked", "checked");
+                                    }
+
+                                    if (displayBookmarkedAssignments) { // Only display completed assignments
+                                        if (item.assignment_id === assignment_id && item.isBookmarked) {
+                                            saved_bookmark.setAttribute("checked", "checked");
+                                            document.getElementById("assignments-go-here").appendChild(newcard);
+                                        }
+                                    } else { // Only display incompleted assignments
+                                        if (item.assignment_id === assignment_id && !item.isBookmarked) {
+                                            document.getElementById("assignments-go-here").appendChild(newcard);
+                                        }
+                                    }
+
+                                }
+                            })
+                        }
+
                     });
                 }
             })
@@ -109,7 +122,8 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 displayAssignmentsDynamically(true); // Displays bookmarked assignments
 displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
 
-const is_bookmarked = (assignment_id) => {
+// Updates the firebase if a user bookmarks an assignment
+function is_bookmarked(assignment_id) {
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
             const completedAssignments = doc.data().completedAssignments;
@@ -120,16 +134,12 @@ const is_bookmarked = (assignment_id) => {
             db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
             }, { merge: true });
-            //Adjust if needed
-        }).then(() => {
-            setTimeout(() => {
-                location.reload();
-            }, 500);
         });
     })
 }
 
-const is_checked = (assignment_id) => {
+// Updates the user's completedAssignments and points when an assignment is check off. Also updates the particular assignment's css.
+function is_checked(assignment_id) {
 
     firebase.auth().onAuthStateChanged(async (user) => {
         const doc = await db.collection("users").doc(user.uid).get();
@@ -147,7 +157,14 @@ const is_checked = (assignment_id) => {
         await db.collection("users").doc(user.uid).set({
             completedAssignments: mergeArray,
         }, { merge: true });
-        location.reload();
+
+        // Changes the style when the user checks an assignment
+        if (mergeArray[assignmentIndex].isCompleted) {
+            document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
+        }
+        else {
+            document.getElementById(assignment_id).setAttribute("class", "assignment");
+        }
     });
 };
 
@@ -209,4 +226,24 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
             });
         });
     }
+}
+
+// Update assignment count based on if user checked or unchecked box
+async function updateUsersCompleted(assignment_id) {
+    firebase.auth().onAuthStateChanged((user) => {
+        db.collection("users").doc(user.uid).get().then((doc) => {
+            const completedAssignments = doc.data().completedAssignments;
+            let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
+            let mergeArray = completedAssignments;
+            mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
+            console.log(mergeArray);
+
+            for (item of mergeArray) {
+                db.collection("assignments").doc(assignment_id).update({
+                    users_completed: firebase.firestore.FieldValue.increment(1)
+                })
+
+            }
+        })
+    })
 }
