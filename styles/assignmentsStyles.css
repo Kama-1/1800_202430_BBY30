@@ -13,11 +13,12 @@ body {
 
 #top-bar {
     display: grid;
-    margin-top: 2%;
-    grid-template-columns: 1fr 1fr;
+    margin: auto;
+    grid-template-columns: 3fr 1fr;
 }
 
 #add-assignment img {
+    margin: 1.5em auto 1.5em 0;
     width: 50px;
 }
 
