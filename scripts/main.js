@@ -151,6 +151,14 @@ function is_checked(assignment_id) {
         let mergeArray = completedAssignments;
         mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
 
+        // Changes the style when the user checks an assignment
+        if (mergeArray[assignmentIndex].isCompleted) {
+            document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
+        }
+        else {
+            document.getElementById(assignment_id).setAttribute("class", "assignment");
+        }
+
         // Calculates and adds/removes points
         const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
         await addPoints(points, user.uid, assignment_id);
@@ -160,13 +168,6 @@ function is_checked(assignment_id) {
             completedAssignments: mergeArray,
         }, { merge: true });
 
-        // Changes the style when the user checks an assignment
-        if (mergeArray[assignmentIndex].isCompleted) {
-            document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
-        }
-        else {
-            document.getElementById(assignment_id).setAttribute("class", "assignment");
-        }
     });
 };
 

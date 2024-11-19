@@ -39,12 +39,11 @@ img {
     grid-template-rows: 1fr 1fr 1fr;
 }
 
-.assignment:hover{
+/* .assignment:hover{
     animation-name: assignmentHover;
     animation-duration: .3s;
-    animation-iteration-count:1;
-    animation-fill-mode: forwards
-}
+    animation-fill-mode: forwards;
+} */
 
 @keyframes assignmentHover {
     from {
@@ -65,6 +64,9 @@ img {
 }
 
 .assignment-completed {
+    animation-name: assignmentSubmit;
+    animation-duration: .8s;
+    animation-fill-mode: forwards;
     background-color: rgb(236, 236, 236);
     color: rgb(193, 195, 196)
 }
