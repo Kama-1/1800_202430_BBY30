@@ -27,6 +27,7 @@ img {
 }
 
 /* Assignment Instance */
+
 .assignment {
     width: 90%;
     height: 8em;
@@ -36,6 +37,31 @@ img {
     padding: 1% 1em;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
+}
+
+.assignment:hover{
+    animation-name: assignmentHover;
+    animation-duration: .3s;
+    animation-iteration-count:1;
+    animation-fill-mode: forwards
+}
+
+@keyframes assignmentHover {
+    from {
+        scale: 100%;
+    }
+    to {
+        scale: 102%;
+    }
+}
+
+@keyframes assignmentSubmit {
+    0%, 100% {
+        scale: 100%;
+    }
+    50% {
+        scale: 95%;
+    }
 }
 
 .assignment-completed {
