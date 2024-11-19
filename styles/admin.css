@@ -1,0 +1,37 @@
+.bookmark {
+    appearance: none;
+    width: 35px;
+    border: 2px solid green;
+    border-radius: 5px;
+    background-color: white;
+    margin: 0;
+    grid-column: 3;
+    background-image: url("/images/edit.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.checkbox {
+    margin: 0 0 0 auto;
+    width: 35px;
+    grid-column: 4;
+    appearance: none;
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: white;
+    background-image: url("/images/trash.svg");
+    background-repeat: no-repeat; 
+    background-size: contain;
+}
+
+.amount-completed img {
+    vertical-align: middle;
+    float: left;
+    width: 35px;
+    height: auto;
+    margin: auto 5px auto auto;
+}
+
+.amount-completed p {
+    margin: auto;
+}
