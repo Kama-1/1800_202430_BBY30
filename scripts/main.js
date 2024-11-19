@@ -151,6 +151,11 @@ function is_checked(assignment_id) {
         let mergeArray = completedAssignments;
         mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
 
+        // Mark assignment
+        await db.collection("users").doc(user.uid).set({
+            completedAssignments: mergeArray,
+        }, { merge: true });
+
         // Changes the style when the user checks an assignment
         if (mergeArray[assignmentIndex].isCompleted) {
             document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
@@ -162,11 +167,6 @@ function is_checked(assignment_id) {
         // Calculates and adds/removes points
         const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
         await addPoints(points, user.uid, assignment_id);
-
-        // Mark assignment
-        await db.collection("users").doc(user.uid).set({
-            completedAssignments: mergeArray,
-        }, { merge: true });
 
     });
 };
@@ -239,7 +239,6 @@ async function updateUsersCompleted(assignment_id) {
             let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
             let mergeArray = completedAssignments;
             mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
-            console.log(mergeArray);
 
             for (item of mergeArray) {
                 db.collection("assignments").doc(assignment_id).update({
