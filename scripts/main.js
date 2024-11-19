@@ -74,7 +74,9 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
                     newcard.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
-                    newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
+                    if (window.location.pathname.endsWith("assignments.html")) {
+                        newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
+                    }
                     newcard.querySelector('.assignment').setAttribute("id", doc.id);
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
