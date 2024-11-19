@@ -151,10 +151,6 @@ function is_checked(assignment_id) {
         let mergeArray = completedAssignments;
         mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
 
-        // Calculates and adds/removes points
-        const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
-        await addPoints(points, user.uid, assignment_id);
-
         // Mark assignment
         await db.collection("users").doc(user.uid).set({
             completedAssignments: mergeArray,
@@ -167,6 +163,11 @@ function is_checked(assignment_id) {
         else {
             document.getElementById(assignment_id).setAttribute("class", "assignment");
         }
+
+        // Calculates and adds/removes points
+        const points = await getPoints(!completedAssignments[assignmentIndex].isCompleted, assignment_id, user.uid);
+        await addPoints(points, user.uid, assignment_id);
+
     });
 };
 
