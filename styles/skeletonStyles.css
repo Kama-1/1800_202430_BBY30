@@ -11,8 +11,9 @@
 }
 
 .nav-item img {
+    width: 100%;
     min-height: 4%;
-    max-height: 4vh;
+    max-height: 5vh;
 }
 
 #navBar p {
