@@ -236,15 +236,14 @@ async function updateUsersCompleted(assignment_id) {
         db.collection("users").doc(user.uid).get().then((doc) => {
             const completedAssignments = doc.data().completedAssignments;
             let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
-            let mergeArray = completedAssignments;
-            mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
-            console.log(mergeArray);
-
-            for (item of mergeArray) {
+            if (completedAssignments[assignmentIndex].isCompleted) {
+                db.collection("assignments").doc(assignment_id).update({
+                    users_completed: firebase.firestore.FieldValue.increment(-1)
+                })
+            } else {
                 db.collection("assignments").doc(assignment_id).update({
                     users_completed: firebase.firestore.FieldValue.increment(1)
                 })
-
             }
         })
     })
