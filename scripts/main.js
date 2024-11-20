@@ -11,7 +11,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
     let course = params.searchParams.get("sort");
 
     let cardTemplate = document.getElementById("assignmentTemplate");
-    db.collection("assignments").get()
+    db.collection("assignments").orderBy("due_date", "asc").get()
         .then(assignment => {
             assignment.forEach(doc => { //iterate thru each doc
                 var course_tag = doc.data().course_tag;
