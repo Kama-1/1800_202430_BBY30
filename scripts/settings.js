@@ -31,7 +31,7 @@ function updateName() {
     let username = document.getElementById("changeName").value;
     if (user) {
       db.collection("users").doc(user.uid).set({
-        name: user.displayName,
+        name: username,
       }, { merge: true }).then
       user.updateProfile({
         displayName: username
@@ -41,8 +41,8 @@ function updateName() {
     } else {
       console.log("No user is signed in.");
     }
-    alert("Name successfully updated.");
   });
+  alert("Name successfully updated.");
 }
 
 // Change the users password to the new password they inputted

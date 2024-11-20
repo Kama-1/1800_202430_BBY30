@@ -3,7 +3,8 @@ body {
     margin: 0;
     padding-bottom: 8vh;
     /* Fixes navbar overlap. Might need adjustment later. */
-}
+    background-color: #DAD7CD;
+  }
 
 .heading {
     text-align: center;
@@ -22,4 +23,16 @@ body {
     width: 50px;
 }
 
+.assignment {
+  background-color: #A3B18A;
+}
 
+.assignment-tag {
+  background-color: #588157;
+}
+
+/* DAD7CD Faint green */ 
+/* A3B18A Olive green */ 
+/* 588157 Light Green */
+/* 3A5A40 Green */
+/* 344E41 Dark green */
