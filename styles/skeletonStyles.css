@@ -162,6 +162,34 @@ img {
     margin: auto;
 }
 
+.style-COMP1800 .assignment-tag {
+    background-color: hsl(273, 70%, 50%);
+}
+
+.style-COMP1510 .assignment-tag {
+    background-color: hsl(0, 70%, 50%);
+}
+
+.style-COMP1537 .assignment-tag {
+    background-color: hsl(30, 70%, 50%);
+}
+
+.style-COMM1116 .assignment-tag {
+    background-color: hsl(200, 70%, 50%);
+}
+
+.style-COMP1100 .assignment-tag {
+    background-color: hsl(56, 70%, 50%);
+}
+
+.style-COMP1113 .assignment-tag {
+    background-color: hsl(332, 70%, 50%);
+}
+
+.style-COMP1712 .assignment-tag {
+    background-color: hsl(212, 70%, 50%);
+}
+
 /* For assignment template */
 @media only screen and (min-width: 1000px) {
     .assignment-list {

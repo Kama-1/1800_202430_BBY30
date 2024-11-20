@@ -78,6 +78,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                         newcard.querySelector('.checkbox').onclick = () => updateUsersCompleted(doc.id);
                     }
                     newcard.querySelector('.assignment').setAttribute("id", doc.id);
+                    newcard.querySelector('.assignment').setAttribute("class", "assignment style-" + course_tag);
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
                     var saved_checkmark = newcard.querySelector('.checkbox');
@@ -150,6 +151,7 @@ function is_checked(assignment_id) {
         let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
         let mergeArray = completedAssignments;
         mergeArray[assignmentIndex].isCompleted = !mergeArray[assignmentIndex].isCompleted;
+        const htmlTemplate = document.getElementById(assignment_id);
 
         // Mark assignment
         await db.collection("users").doc(user.uid).set({
@@ -158,10 +160,11 @@ function is_checked(assignment_id) {
 
         // Changes the style when the user checks an assignment
         if (mergeArray[assignmentIndex].isCompleted) {
-            document.getElementById(assignment_id).setAttribute("class", "assignment assignment-completed");
+            htmlTemplate.setAttribute("class", "assignment assignment-completed");
         }
         else {
-            document.getElementById(assignment_id).setAttribute("class", "assignment");
+            const course_tag = htmlTemplate.querySelector(".course-tag-here").innerHTML;
+            htmlTemplate.setAttribute("class", "assignment style-" + course_tag);
         }
 
         // Calculates and adds/removes points
