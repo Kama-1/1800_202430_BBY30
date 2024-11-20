@@ -41,6 +41,7 @@ function updateName() {
     } else {
       console.log("No user is signed in.");
     }
+    alert("Name successfully updated.");
   });
 }
 
@@ -51,7 +52,7 @@ function updatePassword() {
     let confirmPassword = document.getElementById("confirmPassword").value;
     if (user && newPassword === confirmPassword) {
       user.updatePassword(newPassword).then(() => {
-        console.log("Password updated successfully");
+        alert("Password Successfully Updated")
       }).catch((error) => {
         console.error("Error updating password:", error);
       });
