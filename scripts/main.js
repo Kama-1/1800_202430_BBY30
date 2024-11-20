@@ -22,7 +22,7 @@ function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 
                     var due_date = doc.data().due_date;
                     var date = due_date.toDate();
-                    var day = date.getDate();
+                    var day = date.getDate() + 1;
                     var month = date.getMonth() + 1;
                     var monthString;
                     switch (month) {
