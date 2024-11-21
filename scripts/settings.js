@@ -70,10 +70,13 @@ function updateWebsiteTheme() {
       console.log(theme);
       db.collection("users").doc(user.uid).set({
         website_theme: theme,
-      }, { merge: true })
+      }, { merge: true });
+      const websiteTheme = document.getElementById("websiteStyle")
       if (theme === "dark") {
-        htmlBody = document.body;
-        htmlBody.classList.toggle("dark-mode");
+        websiteTheme.setAttribute('href', 'styles/dark.css');
+      }
+      if (theme === "light") {
+        websiteTheme.setAttribute('href', 'styles/light.css');
       }
     }
   });
@@ -96,9 +99,12 @@ function checkDarkMode() {
     if (user) {
       db.collection("users").doc(user.uid).get().then((doc) => {
         const theme = doc.data().website_theme
+        const websiteTheme = document.getElementById("websiteStyle")
         if (theme === "dark") {
-          htmlBody = document.body;
-          htmlBody.classList.toggle("dark-mode");
+          websiteTheme.setAttribute('href', 'styles/dark.css');
+        }
+        if (theme === "light") {
+          websiteTheme.setAttribute('href', 'styles/light.css');
         }
       });
     }

@@ -70,3 +70,22 @@ firebase.auth().onAuthStateChanged(function (user) {
     console.log("No user is signed in.");
   }
 });
+
+// On page load checks user's theme and displays css accordingly
+function checkDarkMode() {
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      db.collection("users").doc(user.uid).get().then((doc) => {
+        const theme = doc.data().website_theme
+        const websiteTheme = document.getElementById("websiteStyle")
+        if (theme === "dark") {
+          websiteTheme.setAttribute('href', 'styles/dark.css');
+        }
+        if (theme === "light") {
+          websiteTheme.setAttribute('href', 'styles/light.css');
+        }
+      });
+    }
+  })
+}
+checkDarkMode();
