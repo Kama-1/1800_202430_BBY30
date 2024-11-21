@@ -24,19 +24,29 @@ function addAssignmentToUserArray(assignment_id) {
 }
 
 // Creates a firebase new assignment with the given values
-function addAssignment() {
+async function addAssignment() {
+  const usersCompleted = 0;
+  db.collection("assignments").doc(document.getElementById("editTitle").value).get().then((doc) => {
+    if (doc.exists) {
+      usersCompleted = 0;
+    }
+  }).catch((error) => {
+    console.log("Document not found", error);
+  });
+  console.log(usersCompleted)
+
   const newTitle = document.getElementById("editTitle").value;
   const newTag = document.getElementById("editCourseTag").value;
   const newPoints = document.getElementById("editPoints").value;
   const newDescription = document.getElementById("editDescription").value;
   const newDueDate = firebase.firestore.Timestamp.fromDate(new Date(document.getElementById("editDueDate").value));
-  db.collection("assignments").doc(newTitle).set({
+  await db.collection("assignments").doc(newTitle).set({
     title: newTitle,
     course_tag: newTag,
     points: newPoints,
     description: newDescription,
     due_date: newDueDate,
-    users_completed: 0,
+    users_completed: usersCompleted,
   }, { merge: true })
     .then(() => {
       addAssignmentToUserArray(newTitle);
@@ -82,7 +92,7 @@ async function fillUpdateInfo(assignment_id) {
     localStorage.setItem("editDueDate", doc.data().due_date.toDate().toISOString().split("T")[0]);
     location.href = 'addAssignment.html';
   }).catch((error) => {
-    console.log("Document not found", error);
+    console.error("Document not found", error);
   });
 }
 
@@ -94,10 +104,11 @@ function fillPage() {
   if (editDescription) document.getElementById("editDescription").value = localStorage.getItem("editDescription");
   if (editDueDate) document.getElementById("editDueDate").value = localStorage.getItem("editDueDate");
 
-  localStorage.removeItem("editTitle");
-  localStorage.removeItem("editCourseTag");
-  localStorage.removeItem("editPoints");
-  localStorage.removeItem("editDescription");
-  localStorage.removeItem("editDueDate");
+  //
+  // localStorage.removeItem("editTitle");
+  // localStorage.removeItem("editCourseTag");
+  // localStorage.removeItem("editPoints");
+  // localStorage.removeItem("editDescription");
+  // localStorage.removeItem("editDueDate");
 }
 

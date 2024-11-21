@@ -90,6 +90,7 @@ window.onload = function () {
 
 }
 
+// Checks if the user has selected dark mode
 function checkDarkMode() {
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
