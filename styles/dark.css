@@ -1,0 +1,84 @@
+/* For elements that all pages share */
+body {
+  background-color: rgb(73, 70, 70);
+  color: white;
+}
+.heading {
+  background-color: rgb(32, 32, 32);
+}
+#navBar {
+  background-color: rgb(32, 32, 32);
+}
+#navBar img {
+  filter: invert();
+}
+
+/* For settings page */
+.btn {
+  background-color: #0067ab;
+}
+.btn:hover {
+  background-color: #007acc;
+}
+input[type="text"], input[type="password"] {
+  background-color: grey;
+}
+select option {
+  background-color: grey;
+}
+
+/* For assignment */
+.assignment {
+  color: black;
+}
+.style-COMP1800 .assignment-tag {
+  background-color: hsl(273, 40%, 60%);
+}
+.style-COMP1800 {
+  background-color: hsl(273, 34%, 89%);
+}
+
+.style-COMP1510 .assignment-tag {
+  background-color: hsl(0, 50%, 60%);
+}
+.style-COMP1510 {
+  background-color: hsl(0, 23%, 89%);
+}
+
+.style-COMP1537 .assignment-tag {
+  background-color: hsl(30, 40%, 60%);
+}
+.style-COMP1537 {
+  background-color: hsl(30, 34%, 89%);
+}
+
+.style-COMM1116 .assignment-tag {
+  background-color: hsl(200, 40%, 60%);
+}
+.style-COMM1116 {
+  background-color: hsl(200, 34%, 89%);
+}
+
+.style-COMP1100 .assignment-tag {
+  background-color: hsl(56, 40%, 60%);
+}
+.style-COMP1100 {
+  background-color: hsl(56, 34%, 89%);
+}
+
+.style-COMP1113 .assignment-tag {
+  background-color: hsl(332, 50%, 60%);
+}
+.style-COMP1113 {
+  background-color: hsl(332, 34%, 89%);
+}
+
+.style-COMP1712 .assignment-tag {
+  background-color: hsl(109, 35%, 60%);
+}
+.style-COMP1712 {
+  background-color: hsl(109, 34%, 89%);
+}
+.checkbox {
+  accent-color: black;
+}
