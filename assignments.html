@@ -34,7 +34,7 @@
 </div>
   <!-- Assignment Template  -->
   <template id="assignmentTemplate">
-    <div class="assignment" id="assignment-id" onclick="">
+    <div class="assignment" id="assignment-id">
       <div class="top-row">
         <p class="title-here">Assignment Title</p>
         <p class="points-here">Points</p>
@@ -44,7 +44,7 @@
       <div class="assignment-tag">
         <p class="course-tag-here">COMP 1800</p>
       </div>
-      <div class="bottom-row">
+      <div class="bottom-row" onclick="">
         <p class="due-date-here">Due: Oct 28</p>
         <div class="amount-completed">
           <p><img src="/images/people.png"><span id="usersCompleted" class="users-completed-here">26/30</span></p>
@@ -53,14 +53,16 @@
     </div>
   </template>
 
-<!-- Modal -->
-<div class="modal fade" id="assignment-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Assignments Modal -->
+<div class="modal fade" id="assignment-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Assignment Title</h5>
-        <input type="checkbox" class="bookmark" onchange="">
-        <input type="checkbox" class="checkbox" onchange="">
+        <div>
+          <input type="checkbox" class="bookmark" onchange="">
+          <input type="checkbox" class="checkbox" onchange="">
+        </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

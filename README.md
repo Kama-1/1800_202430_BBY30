@@ -61,6 +61,7 @@ It has the following subfolders and files:
     /script.js               # Script for logging out the user
     /settings.js             # Script for updating the users settings
     /skeleton.js             # Script for loading the skeleton elements such as the navbar
+    /assingmentsPopUp.js     # Script for populating and displaying assignment modals
 ├── styles                   # Folder for styles
     /admin.css               # Styling to override the bookmark and checkbox elements from skeletonStyles.css
     /assignmentsStyles.css   # Styling for the basic elements on the assignments.html page

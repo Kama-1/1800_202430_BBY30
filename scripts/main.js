@@ -38,7 +38,7 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     }
                     newcard.querySelector('.assignment').setAttribute("id", doc.id);
                     newcard.querySelector('.assignment').setAttribute("class", "assignment style-" + course_tag);
-                    newcard.querySelector('.assignment').setAttribute("onclick", "showAssignmentModal('" + doc.id + "')");
+                    newcard.querySelector('.bottom-row').setAttribute("onclick", "showAssignmentModal('" + doc.id + "')");
 
                     var completed_assignment_style = newcard.querySelector('.assignment');
                     var saved_checkmark = newcard.querySelector('.checkbox');

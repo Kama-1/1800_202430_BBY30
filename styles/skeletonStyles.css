@@ -294,3 +294,8 @@ img {
     background-color: rgb(157, 112, 194);   
 }
 
+/* Modals */
+.modal-header{
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+}
