@@ -21,56 +21,14 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     points = await calculatePoints(points, title);
                     var users_completed = doc.data().users_completed;
 
-                    var due_date = doc.data().due_date;
-                    var date = due_date.toDate();
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var monthString;
-                    switch (month) {
-                        case 1:
-                            monthString = "Jan. ";
-                            break;
-                        case 2:
-                            monthString = "Feb. ";
-                            break;
-                        case 3:
-                            monthString = "Mar. ";
-                            break;
-                        case 4:
-                            monthString = "Apr. ";
-                            break;
-                        case 5:
-                            monthString = "May. ";
-                            break;
-                        case 6:
-                            monthString = "Jun. ";
-                            break;
-                        case 7:
-                            monthString = "Jul. ";
-                            break;
-                        case 8:
-                            monthString = "Aug. ";
-                            break;
-                        case 9:
-                            monthString = "Sep. ";
-                            break;
-                        case 10:
-                            monthString = "Oct. ";
-                            break;
-                        case 11:
-                            monthString = "Nov. ";
-                            break;
-                        case 12:
-                            monthString = "Dec. ";
-                            break;
-                        default:
-                            monthString = "null ";
-                    }
+                    var due_date = dueDateToText(doc.data().due_date);
+                    
+                    
                     let newcard = cardTemplate.content.cloneNode(true);
 
                     newcard.querySelector('.title-here').innerHTML = title;
                     newcard.querySelector('.points-here').innerHTML = "+" + points;
-                    newcard.querySelector('.due-date-here').innerHTML = "Due: " + monthString + day;
+                    newcard.querySelector('.due-date-here').innerHTML = due_date;
                     newcard.querySelector('.course-tag-here').innerHTML = course_tag;
                     newcard.querySelector('.users-completed-here').innerHTML = users_completed + " completed"; //+ "/" + total_users; 
                     newcard.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
@@ -126,6 +84,54 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 
 displayAssignmentsDynamically(true); // Displays bookmarked assignments
 displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
+
+function dueDateToText(due_date){
+    var date = due_date.toDate();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var monthString;
+    switch (month) {
+        case 1:
+            monthString = "Jan. ";
+            break;
+        case 2:
+            monthString = "Feb. ";
+            break;
+        case 3:
+            monthString = "Mar. ";
+            break;
+        case 4:
+            monthString = "Apr. ";
+            break;
+        case 5:
+            monthString = "May. ";
+            break;
+        case 6:
+            monthString = "Jun. ";
+            break;
+        case 7:
+            monthString = "Jul. ";
+            break;
+        case 8:
+            monthString = "Aug. ";
+            break;
+        case 9:
+            monthString = "Sep. ";
+            break;
+        case 10:
+            monthString = "Oct. ";
+            break;
+        case 11:
+            monthString = "Nov. ";
+            break;
+        case 12:
+            monthString = "Dec. ";
+            break;
+        default:
+            monthString = "null ";
+    }
+    return "Due: " + monthString + day
+}
 
 // Updates the firebase if a user bookmarks an assignment
 function is_bookmarked(assignment_id) {
