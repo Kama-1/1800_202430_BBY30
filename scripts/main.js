@@ -5,24 +5,25 @@ if not, only non-bookmarked assignments will be displayed.
 This function will also sort by course tag if a url parameter is detected. 
 If no url course tag is detected, it will display all assignments.
 */
-function displayAssignmentsDynamically(displayBookmarkedAssignments) {
+async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
     // Checks if the user is sorting courses through the dropdown
     let params = new URL(window.location.href);
     let course = params.searchParams.get("sort");
 
     let cardTemplate = document.getElementById("assignmentTemplate");
-    db.collection("assignments").orderBy("due_date", "asc").get()
+    await db.collection("assignments").orderBy("due_date", "asc").get()
         .then(assignment => {
-            assignment.forEach(doc => { //iterate thru each doc
+            assignment.forEach(async doc => { //iterate thru each doc
                 var course_tag = doc.data().course_tag;
                 if (course_tag == course || !course) { // If an assignments course tag == the url parameter
                     var title = doc.data().title;
                     var points = doc.data().points;
+                    points = await calculatePoints(points, title);
                     var users_completed = doc.data().users_completed;
 
                     var due_date = doc.data().due_date;
                     var date = due_date.toDate();
-                    var day = date.getDate() + 1;
+                    var day = date.getDate();
                     var month = date.getMonth() + 1;
                     var monthString;
                     switch (month) {
@@ -196,10 +197,10 @@ function getPoints(isCompleted, assignment_id, user_id) {
 }
 
 // Calculates points based on time
-function calculatePoints(points, assignment_id) {
+async function calculatePoints(points, assignment_id) {
     const currentDate = new Date();
     let dueDate = null;
-    return db.collection("assignments").doc(assignment_id).get().then((doc) => {
+    return await db.collection("assignments").doc(assignment_id).get().then((doc) => {
         if (doc.exists) {
             dueDate = doc.data().due_date.toDate();
         }
@@ -207,6 +208,8 @@ function calculatePoints(points, assignment_id) {
         //Points calculation formula
         const multiplier = 1 + (diffInDays / 10);
         return Math.round(points * multiplier);
+        
+        
     });
 }
 
