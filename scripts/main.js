@@ -5,67 +5,68 @@ if not, only non-bookmarked assignments will be displayed.
 This function will also sort by course tag if a url parameter is detected. 
 If no url course tag is detected, it will display all assignments.
 */
-function displayAssignmentsDynamically(displayBookmarkedAssignments) {
-  // Checks if the user is sorting courses through the dropdown
-  let params = new URL(window.location.href);
-  let course = params.searchParams.get("sort");
+async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
+    // Checks if the user is sorting courses through the dropdown
+    let params = new URL(window.location.href);
+    let course = params.searchParams.get("sort");
 
-  let cardTemplate = document.getElementById("assignmentTemplate");
-  db.collection("assignments").orderBy("due_date", "asc").get()
-    .then(assignment => {
-      assignment.forEach(doc => { //iterate thru each doc
-        var course_tag = doc.data().course_tag;
-        if (course_tag == course || !course) { // If an assignments course tag == the url parameter
-          var title = doc.data().title;
-          var points = doc.data().points;
-          var users_completed = doc.data().users_completed;
+    let cardTemplate = document.getElementById("assignmentTemplate");
+    await db.collection("assignments").orderBy("due_date", "asc").get()
+        .then(assignment => {
+            assignment.forEach(async doc => { //iterate thru each doc
+                var course_tag = doc.data().course_tag;
+                if (course_tag == course || !course) { // If an assignments course tag == the url parameter
+                    var title = doc.data().title;
+                    var points = doc.data().points;
+                    points = await calculatePoints(points, title);
+                    var users_completed = doc.data().users_completed;
 
-          var due_date = doc.data().due_date;
-          var date = due_date.toDate();
-          var day = date.getDate() + 1;
-          var month = date.getMonth() + 1;
-          var monthString;
-          switch (month) {
-            case 1:
-              monthString = "Jan. ";
-              break;
-            case 2:
-              monthString = "Feb. ";
-              break;
-            case 3:
-              monthString = "Mar. ";
-              break;
-            case 4:
-              monthString = "Apr. ";
-              break;
-            case 5:
-              monthString = "May. ";
-              break;
-            case 6:
-              monthString = "Jun. ";
-              break;
-            case 7:
-              monthString = "Jul. ";
-              break;
-            case 8:
-              monthString = "Aug. ";
-              break;
-            case 9:
-              monthString = "Sep. ";
-              break;
-            case 10:
-              monthString = "Oct. ";
-              break;
-            case 11:
-              monthString = "Nov. ";
-              break;
-            case 12:
-              monthString = "Dec. ";
-              break;
-            default:
-              monthString = "null ";
-          }
-          let newcard = cardTemplate.content.cloneNode(true);
+                    var due_date = doc.data().due_date;
+                    var date = due_date.toDate();
+                    var day = date.getDate();
+                    var month = date.getMonth() + 1;
+                    var monthString;
+                    switch (month) {
+                        case 1:
+                            monthString = "Jan. ";
+                            break;
+                        case 2:
+                            monthString = "Feb. ";
+                            break;
+                        case 3:
+                            monthString = "Mar. ";
+                            break;
+                        case 4:
+                            monthString = "Apr. ";
+                            break;
+                        case 5:
+                            monthString = "May. ";
+                            break;
+                        case 6:
+                            monthString = "Jun. ";
+                            break;
+                        case 7:
+                            monthString = "Jul. ";
+                            break;
+                        case 8:
+                            monthString = "Aug. ";
+                            break;
+                        case 9:
+                            monthString = "Sep. ";
+                            break;
+                        case 10:
+                            monthString = "Oct. ";
+                            break;
+                        case 11:
+                            monthString = "Nov. ";
+                            break;
+                        case 12:
+                            monthString = "Dec. ";
+                            break;
+                        default:
+                            monthString = "null ";
+                    }
+                    let newcard = cardTemplate.content.cloneNode(true);
 
           newcard.querySelector('.title-here').innerHTML = title;
           newcard.querySelector('.points-here').innerHTML = "+" + points;
@@ -196,18 +197,20 @@ function getPoints(isCompleted, assignment_id, user_id) {
 }
 
 // Calculates points based on time
-function calculatePoints(points, assignment_id) {
-  const currentDate = new Date();
-  let dueDate = null;
-  return db.collection("assignments").doc(assignment_id).get().then((doc) => {
-    if (doc.exists) {
-      dueDate = doc.data().due_date.toDate();
-    }
-    const diffInDays = (dueDate - currentDate) / (1000 * 60 * 60 * 24);
-    //Points calculation formula
-    const multiplier = 1 + (diffInDays / 10);
-    return Math.round(points * multiplier);
-  });
+async function calculatePoints(points, assignment_id) {
+    const currentDate = new Date();
+    let dueDate = null;
+    return await db.collection("assignments").doc(assignment_id).get().then((doc) => {
+        if (doc.exists) {
+            dueDate = doc.data().due_date.toDate();
+        }
+        const diffInDays = (dueDate - currentDate) / (1000 * 60 * 60 * 24);
+        //Points calculation formula
+        const multiplier = 1 + (diffInDays / 10);
+        return Math.round(points * multiplier);
+        
+        
+    });
 }
 
 // Adds/removes points to/from user accounts

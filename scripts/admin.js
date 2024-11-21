@@ -44,7 +44,7 @@ function addAssignment() {
 }
 
 // Removes assignment from assignments collection
-function deleteAssignment(assignment_id) {
+async function deleteAssignment(assignment_id) {
   db.collection("assignments")
     .doc(assignment_id)
     .delete()
@@ -55,7 +55,7 @@ function deleteAssignment(assignment_id) {
     });
 
   // Removes assignment from users array
-  db.collection("users")
+  await db.collection("users")
     .get()
     .then((user) => {
       user.forEach((doc) => {
