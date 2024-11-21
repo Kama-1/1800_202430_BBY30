@@ -93,7 +93,7 @@ window.onload = function () {
 
 }
 
-// On page load checks user's theme and displays css accordingly
+// Checks if the user has selected dark mode
 function checkDarkMode() {
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
