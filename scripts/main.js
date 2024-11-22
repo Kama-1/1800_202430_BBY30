@@ -287,5 +287,23 @@ async function displayAssignments() {
     await displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
 }
 
+async function deleteOverdueAssignments() {
+    
+    const currentDate = new Date();
+    let dueDate = null;
+
+    await db.collection("assignments").orderBy("due_date", "asc").get()
+        .then(assignment => {
+            assignment.forEach(async doc => { //iterate thru each doc
+                dueDate = doc.data().due_date.toDate();
+                console.log(dueDate);
+                console.log(currentDate);
+                if (currentDate.getTime() > dueDate.getTime()) {
+                    deleteAssignment(doc.data().title);
+                }
+            })
+        })
+}
+deleteOverdueAssignments();
 displayAssignments();
 checkDarkMode();
