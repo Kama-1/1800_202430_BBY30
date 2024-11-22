@@ -10,6 +10,7 @@ firebase.auth().onAuthStateChanged(user => {
 
 // Populates the modal with assignment information, and then displays it to the user
 function showAssignmentModal(assignment_id){
+    console.log(assignment_id)
     let modal = document.getElementById("assignment-modal")
     db.collection("assignments").doc(assignment_id).get().then(async doc => {
         const due_date = dueDateToText(doc.data().due_date);
