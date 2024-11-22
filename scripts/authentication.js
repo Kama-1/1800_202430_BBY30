@@ -39,7 +39,7 @@ var uiConfig = {
             window.location.assign("assignments.html");
           }
         }).catch(function (error) {
-          console.log("Error adding new user: " + error);
+          console.error("Error adding new user: " + error);
         });
         return false;
       }

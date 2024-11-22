@@ -39,7 +39,7 @@ function updateName() {
         console.error("Error updating username:", error);
       });
     } else {
-      console.log("No user is signed in.");
+      console.error("No user is signed in.");
     }
   });
   alert("Name successfully updated.");
@@ -67,7 +67,6 @@ function updateWebsiteTheme() {
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       const theme = document.getElementById("websiteTheme").value;
-      console.log(theme);
       db.collection("users").doc(user.uid).set({
         website_theme: theme,
       }, { merge: true });

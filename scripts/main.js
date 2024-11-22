@@ -227,7 +227,7 @@ function addPoints(assignmentPoints, user_id, assignment_id) {
     db.collection("users").doc(user_id).set({
         points: firebase.firestore.FieldValue.increment(assignmentPoints),
     }, { merge: true }).catch((error) => {
-        console.log("Error getting document:", error);
+        console.error("Error getting document:", error);
     });
 
     // Stores added points in array
@@ -288,7 +288,7 @@ async function displayAssignments() {
 }
 
 async function deleteOverdueAssignments() {
-    
+
     const currentDate = new Date();
     let dueDate = null;
 
@@ -296,8 +296,6 @@ async function deleteOverdueAssignments() {
         .then(assignment => {
             assignment.forEach(async doc => { //iterate thru each doc
                 dueDate = doc.data().due_date.toDate();
-                console.log(dueDate);
-                console.log(currentDate);
                 if (currentDate.getTime() > dueDate.getTime()) {
                     deleteAssignment(doc.data().title);
                 }

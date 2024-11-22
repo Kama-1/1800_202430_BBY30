@@ -56,7 +56,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             row.insertCell(2).textContent = data.points;
           }
         } else {
-          console.log("No such user document!");
+          console.error("No such user document!");
         }
       }).catch((error) => {
         console.error("Error getting document:", error);
@@ -67,7 +67,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     });
 
   } else {
-    console.log("No user is signed in.");
+    console.error("No user is signed in.");
   }
 });
 

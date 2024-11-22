@@ -103,7 +103,7 @@ function fillPage() {
   if (editDescription) document.getElementById("editDescription").value = localStorage.getItem("editDescription");
   if (editDueDate) document.getElementById("editDueDate").value = localStorage.getItem("editDueDate");
 
-  if(localStorage.getItem("editTitle") !== null) document.getElementById("editTitle").disabled = true;
+  if (localStorage.getItem("editTitle") !== null) document.getElementById("editTitle").disabled = true;
 
   localStorage.removeItem("editTitle");
   localStorage.removeItem("editCourseTag");
