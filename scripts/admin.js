@@ -25,15 +25,14 @@ function addAssignmentToUserArray(assignment_id) {
 
 // Creates a firebase new assignment with the given values
 async function addAssignment() {
-  const usersCompleted = 0;
-  db.collection("assignments").doc(document.getElementById("editTitle").value).get().then((doc) => {
-    if (doc.exists) {
-      usersCompleted = 0;
-    }
-  }).catch((error) => {
-    console.log("Document not found", error);
-  });
-  console.log(usersCompleted)
+
+  let usersCompleted = 0;
+  try {
+    const doc = await db.collection("assignments").doc(document.getElementById("editTitle").value).get()
+    usersCompleted = doc.data().users_completed;
+  } catch (error) {
+    console.error("Document not found", error);
+  }
 
   const newTitle = document.getElementById("editTitle").value;
   const newTag = document.getElementById("editCourseTag").value;
@@ -104,10 +103,11 @@ function fillPage() {
   if (editDescription) document.getElementById("editDescription").value = localStorage.getItem("editDescription");
   if (editDueDate) document.getElementById("editDueDate").value = localStorage.getItem("editDueDate");
 
-  //
-  // localStorage.removeItem("editTitle");
-  // localStorage.removeItem("editCourseTag");
-  // localStorage.removeItem("editPoints");
-  // localStorage.removeItem("editDescription");
-  // localStorage.removeItem("editDueDate");
+  if(localStorage.getItem("editTitle") !== null) document.getElementById("editTitle").disabled = true;
+
+  localStorage.removeItem("editTitle");
+  localStorage.removeItem("editCourseTag");
+  localStorage.removeItem("editPoints");
+  localStorage.removeItem("editDescription");
+  localStorage.removeItem("editDueDate");
 }
