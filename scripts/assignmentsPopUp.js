@@ -1,5 +1,6 @@
 //Global variable pointing to the current user's Firestore document
 var currentUser;   
+var myModal = new bootstrap.Modal(document.getElementById('assignment-modal'));
 
 //Function that calls everything needed for the main page  
 firebase.auth().onAuthStateChanged(user => {
@@ -10,7 +11,6 @@ firebase.auth().onAuthStateChanged(user => {
 
 // Populates the modal with assignment information, and then displays it to the user
 function showAssignmentModal(assignment_id){
-    console.log(assignment_id)
     let modal = document.getElementById("assignment-modal")
     db.collection("assignments").doc(assignment_id).get().then(async doc => {
         const due_date = dueDateToText(doc.data().due_date);
@@ -23,6 +23,6 @@ function showAssignmentModal(assignment_id){
         modal.querySelector(".users-completed-here").innerHTML = doc.data().users_completed + " completed";
         modal.querySelector(".points-here").innerHTML = "+" + base_points + ", +" + time_points + " time bonus"
     })
-    const myModal = new bootstrap.Modal(document.getElementById('assignment-modal'));
+    
     myModal.show();
 }
