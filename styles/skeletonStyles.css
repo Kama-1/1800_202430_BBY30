@@ -94,10 +94,11 @@ img {
     cursor: pointer;
     appearance: none;
     width: 20px;
-    border-right: 14px solid white;
-    border-left: 14px solid white;
+    height: 35px;
+    border-right: 14px solid rgb(122, 122, 122);
+    border-left: 14px solid rgb(122, 122, 122);
     border-bottom: 10px solid transparent;
-    margin: 0;
+    margin: auto 0 0 auto;
     grid-column: 3;
 }
 
