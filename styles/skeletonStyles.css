@@ -95,16 +95,16 @@ img {
     appearance: none;
     width: 20px;
     height: 35px;
-    border-right: 14px solid rgb(122, 122, 122);
-    border-left: 14px solid rgb(122, 122, 122);
+    border-right: 14px solid rgb(194, 194, 194);
+    border-left: 14px solid rgb(194, 194, 194);
     border-bottom: 10px solid transparent;
     margin: auto 0 0 auto;
     grid-column: 3;
 }
 
 .bookmark:checked {
-    border-right-color: black;
-    border-left-color: black;
+    border-right-color: rgb(60, 60, 60);
+    border-left-color: rgb(60, 60, 60);
 }
 
 .checkbox {
