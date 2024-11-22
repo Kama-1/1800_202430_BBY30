@@ -81,8 +81,7 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
         })
 }
 
-displayAssignmentsDynamically(true); // Displays bookmarked assignments
-displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
+
 
 
 
@@ -281,4 +280,11 @@ function checkDarkMode() {
         }
     })
 }
+
+async function displayAssignments() {
+    await displayAssignmentsDynamically(true); // Displays bookmarked assignments
+    await displayAssignmentsDynamically(false); // Displays  non-bookmarked assignments
+}
+
+displayAssignments();
 checkDarkMode();
