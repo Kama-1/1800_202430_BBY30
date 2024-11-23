@@ -5,7 +5,6 @@ html, body {
 
 .heading {
     text-align: center;
-    background-color: darkgray;
     padding: 1em 1em;
 }
 
@@ -21,7 +20,6 @@ html, body {
 
 /* Navbar instance */
 #navBar {
-    background-color: darkgray;
     padding-top: 3vh;
     justify-content: space-around;
 }
@@ -242,11 +240,6 @@ img {
 }
 
 /* Added to keep headings consistent */
-.heading {
-    text-align: center;
-    background-color: darkgray;
-    padding: 1em 1em;
-}
 
 .btn-group {
     min-width: 200px;
