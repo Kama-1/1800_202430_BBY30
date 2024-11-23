@@ -1,13 +1,13 @@
 /* For elements that all pages share */
 body {
-  background-color: rgb(73, 70, 70);
+  background-color: rgb(38, 40, 46);
   color: white;
 }
 .heading {
-  background-color: rgb(32, 32, 32);
+  background-color: rgb(30, 31, 34);
 }
 #navBar {
-  background-color: rgb(32, 32, 32);
+  background-color: rgb(30, 31, 34);
 }
 #navBar img {
   filter: invert();
@@ -20,12 +20,16 @@ body {
 .btn:hover {
   background-color: #007acc;
 }
+
+/*
+Changes form input fields to grey
 input[type="text"], input[type="password"] {
   background-color: grey;
-}
+} 
 select option {
   background-color: grey;
-}
+} 
+*/
 
 /* For assignment */
 .assignment {

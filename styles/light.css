@@ -1,5 +1,13 @@
 /* For all pages with the same elements */
-
+body {
+  background-color: #DAD7CD;
+}
+.heading {
+  background-color: #588157;
+}
+#navBar {
+  background-color: #588157;
+}
 
 /* For assignment cards */
 .style-COMP1800 .assignment-tag {
@@ -49,4 +57,13 @@
 }
 .style-COMP1712 {
   background-color: hsl(109, 34%, 89%);
+}
+
+/* Button settings */
+.btn {
+  background-color: #3a5a40;
+  color: white;
+}
+.btn:hover {
+  background-color: #3b7245;
 }
