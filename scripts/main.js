@@ -127,11 +127,11 @@ function dueDateToText(due_date) {
 
 // Updates the firebase if a user bookmarks an assignment
 function is_bookmarked(assignment_id) {
-    const bookmarkIcon = document.getElementById(assignment_id).querySelector('.bookmark');
-    if (bookmarkIcon.checked) {
-        bookmarkIcon.checked = false;
+    let assignmentBookmark = document.getElementById(assignment_id).querySelector('.bookmark');
+    if (assignmentBookmark.checked) {
+        assignmentBookmark.checked = false;
     } else {
-        bookmarkIcon.checked = true;
+        assignmentBookmark.checked = true;
     }
     
     firebase.auth().onAuthStateChanged(user => {
