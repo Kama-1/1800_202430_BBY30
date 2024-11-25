@@ -5,7 +5,20 @@ html, body {
 
 .heading {
     text-align: center;
+    display: flex;
     padding: 1em 1em;
+}
+
+.heading h3 {
+    text-align: center;
+    margin: auto auto auto 0.5em;
+
+}
+
+.heading img {
+    width: 50px;
+    margin: auto 0 auto auto;
+    vertical-align: middle;
 }
 
 #top-bar {

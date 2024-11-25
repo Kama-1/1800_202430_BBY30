@@ -20,10 +20,7 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                     var points = doc.data().points;
                     points = await calculatePoints(points, title);
                     var users_completed = doc.data().users_completed;
-
                     var due_date = dueDateToText(doc.data().due_date);
-
-
                     let newcard = cardTemplate.content.cloneNode(true);
 
                     newcard.querySelector('.title-here').innerHTML = title;
