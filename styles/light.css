@@ -1,6 +1,8 @@
 /* For all pages with the same elements */
 body {
-  background-color: #DAD7CD;
+  /* background-color: #DAD7CD;
+  background-color: rgb(241, 241, 241); */
+  background-color: rgb(243, 246, 252);
 }
 .heading {
   background-color: #588157;
