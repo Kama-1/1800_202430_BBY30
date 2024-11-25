@@ -6,7 +6,7 @@ function leaderboard() {
   //Added to clear table before printing new table
   tableTemplate.innerHTML = "";
 
-  db.collection("users").orderBy("points", "desc").limit(10).get().then((users) => {
+  db.collection("users").orderBy("points", "desc").limit(25).get().then((users) => {
     users.forEach((doc) => {
       const data = doc.data();
       const row = tableTemplate.insertRow();
@@ -34,7 +34,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     });
 
     // Get top 10 users from firebase
-    db.collection("users").orderBy("points", "desc").limit(10).get().then((top10) => {
+    db.collection("users").orderBy("points", "desc").limit(25).get().then((top10) => {
 
       // Array of top 10
       const top10Array = [];

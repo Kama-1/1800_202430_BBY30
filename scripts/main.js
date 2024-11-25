@@ -68,20 +68,14 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                                             document.getElementById("assignments-go-here").appendChild(newcard);
                                         }
                                     }
-
                                 }
                             })
                         }
-
                     });
                 }
             })
         })
 }
-
-
-
-
 
 function dueDateToText(due_date) {
     var date = due_date.toDate();
@@ -133,6 +127,13 @@ function dueDateToText(due_date) {
 
 // Updates the firebase if a user bookmarks an assignment
 function is_bookmarked(assignment_id) {
+    let assignmentBookmark = document.getElementById(assignment_id).querySelector('.bookmark');
+    if (assignmentBookmark.checked) {
+        assignmentBookmark.checked = false;
+    } else {
+        assignmentBookmark.checked = true;
+    }
+    
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
             const completedAssignments = doc.data().completedAssignments;

@@ -21,8 +21,10 @@ function showAssignmentModal(assignment_id){
         modal.querySelector(".due-date-here").innerHTML = due_date;
         modal.querySelector(".users-completed-here").innerHTML = doc.data().users_completed + " completed";
         modal.querySelector(".points-here").innerHTML = "+" + base_points + ", +" + time_points + " time bonus"
-        modal.querySelector('.checkbox').setAttribute("onchange", "is_checked('" + doc.id + "')");
-        modal.querySelector('.bookmark').setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
+        modal.querySelector(".checkbox").setAttribute("onchange", "is_checked('" + doc.id + "')");
+        modal.querySelector(".bookmark").setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
+        modal.querySelector(".bookmark").checked = document.getElementById(assignment_id).querySelector('.bookmark').checked;
+        
     })
     
     myModal.show();
