@@ -71,16 +71,11 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
                                 }
                             })
                         }
-
                     });
                 }
             })
         })
 }
-
-
-
-
 
 function dueDateToText(due_date) {
     var date = due_date.toDate();
@@ -132,9 +127,13 @@ function dueDateToText(due_date) {
 
 // Updates the firebase if a user bookmarks an assignment
 function is_bookmarked(assignment_id) {
-    //var saved_bookmark = newcard.querySelector('.bookmark');
-    const assignment = document.getElementById(assignment_id);
-    assignment.querySelector('.bookmark').setAttribute("checked", "checked");
+    const bookmarkIcon = document.getElementById(assignment_id).querySelector('.bookmark');
+    if (bookmarkIcon.checked) {
+        bookmarkIcon.checked = false;
+    } else {
+        bookmarkIcon.checked = true;
+    }
+    
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
             const completedAssignments = doc.data().completedAssignments;
@@ -147,7 +146,6 @@ function is_bookmarked(assignment_id) {
             }, { merge: true });
         });
     })
-    document.querySelector('.book')
 }
 
 // Updates the user's completedAssignments and points when an assignment is check off. Also updates the particular assignment's css.
