@@ -24,7 +24,7 @@ Here are the steps ...
 
 ## 5. Known Bugs and Limitations
 Here are some known bugs:
-* ...
+* Administrators are unable to edit assignment names.
 * ...
 * ...
 
@@ -54,7 +54,7 @@ It has the following subfolders and files:
 ├── images                   # Folder for images
     /blah.jpg                # Acknowledge source // TODO add this once the images folder is cleaned up
 ├── scripts                  # Folder for scripts
-    /admin.js                # 
+    /admin.js                # Script for adding, editing and deleting assignments
     /authentication.js       # Script for authenticating users in the login.html page 
     /leaderboard.js          # Script for updating and displaying the leaderboard 
     /main.js                 # Script for updating and displaying assignments, and for updating and calculating user points
