@@ -67,11 +67,11 @@ async function deleteAssignment(assignment_id) {
   await db.collection("users")
     .get()
     .then((user) => {
-      user.forEach((doc) => {
-        let assignmentsArray = doc.data().completedAssignments;
-        let assignmentIndex = assignmentsArray.map(i => i.assignment_id).indexOf(assignment_id);
-        assignmentsArray.splice(assignmentIndex, 1);
-        db.collection("users").doc(doc.id).set(
+      user.forEach(async (doc) => {
+        let assignmentsArray = await doc.data().completedAssignments;
+        let assignmentIndex = await assignmentsArray.map(i => i.assignment_id).indexOf(assignment_id);
+        await assignmentsArray.splice(assignmentIndex, 1);
+        await db.collection("users").doc(doc.id).set(
           {
             completedAssignments: assignmentsArray,
           },
