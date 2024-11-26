@@ -144,6 +144,7 @@ img {
     margin: 0 0 0 auto;
     width: 35px;
     grid-column: 4;
+    height: 35px;
 }
 
 .top-row p {
