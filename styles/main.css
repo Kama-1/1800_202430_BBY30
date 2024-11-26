@@ -62,28 +62,12 @@ img {
 
 .assignment {
     width: 90%;
-    height: 8em;
+
     margin: 2em auto;
-    background-color: lightgrey;
     border-radius: 1em;
     padding: 1% 1em;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-}
-
-/* .assignment:hover{
-    animation-name: assignmentHover;
-    animation-duration: .3s;
-    animation-fill-mode: forwards;
-} */
-
-@keyframes assignmentHover {
-    from {
-        scale: 100%;
-    }
-    to {
-        scale: 102%;
-    }
+    grid-template-rows: 1fr 20% 1fr;
 }
 
 @keyframes assignmentSubmit {
@@ -150,16 +134,14 @@ img {
 .top-row p {
     font-size: larger;
     font-weight: bold;
-    margin: auto auto 0.2em 0;
+    margin: 0.2em auto 0.2em 0;
 }
 
 
 .assignment-tag {
     background-color: darkgrey;
     width: auto;
-    margin: auto;
-    margin-left: 0;
-    margin-top: 0;
+    margin: 0 auto auto 0;
     border-radius: 3em;
 }
 
