@@ -43,7 +43,7 @@
       <div class="assignment-tag">
         <p class="course-tag-here">COMP 1800</p>
       </div>
-      <div class="bottom-row" onclick="">
+      <div class="bottom-row" onclick="" data-bs-toggle="modal" data-bs-target="#assignment-modal">
         <p class="due-date-here">Due: Oct 28</p>
         <div class="amount-completed">
           <p><img src="/images/people.png"><span id="usersCompleted" class="users-completed-here">26/30</span></p>
@@ -53,7 +53,7 @@
   </template>
 
 <!-- Assignments Modal -->
-<div class="modal fade" id="assignment-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="assignment-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -62,8 +62,8 @@
           <input type="checkbox" class="bookmark" onchange="">
           <input type="checkbox" class="checkbox" onchange="">
         </div>
-        <button type="button" class="close" onclick="myModal.hide()" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <button type="button" class="close" onclick="myModal.hide()">
+          <span>&times;</span>
         </button>
         <p class="due-date-here">Due: Oct 28</p>
       </div>
@@ -104,7 +104,6 @@
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-  <script src="./scripts/assignmentsPopUp.js"></script>
 </body>
 
 </html>
