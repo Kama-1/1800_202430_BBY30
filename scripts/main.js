@@ -128,11 +128,7 @@ function dueDateToText(due_date) {
 // Updates the firebase if a user bookmarks an assignment
 function is_bookmarked(assignment_id) {
     let assignmentBookmark = document.getElementById(assignment_id).querySelector('.bookmark');
-    if (assignmentBookmark.checked) {
-        assignmentBookmark.checked = false;
-    } else {
-        assignmentBookmark.checked = true;
-    }
+    let modalBookmark = document.getElementById("assignment-modal").querySelector('.bookmark');
     
     firebase.auth().onAuthStateChanged(user => {
         db.collection("users").doc(user.uid).get().then((doc) => {
@@ -140,6 +136,14 @@ function is_bookmarked(assignment_id) {
             let assignmentIndex = completedAssignments.map(i => i.assignment_id).indexOf(assignment_id);
             let mergeArray = completedAssignments
             mergeArray[assignmentIndex].isBookmarked = !mergeArray[assignmentIndex].isBookmarked;
+
+            if (mergeArray[assignmentIndex].isBookmarked){
+                assignmentBookmark.checked = true;
+                modalBookmark.checked = true;
+            } else {
+                assignmentBookmark.checked = false;
+                modalBookmark.checked = false;
+            }
 
             db.collection("users").doc(user.uid).set({
                 completedAssignments: mergeArray,
