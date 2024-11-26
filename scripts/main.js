@@ -150,7 +150,9 @@ function is_bookmarked(assignment_id) {
 
 // Updates the user's completedAssignments and points when an assignment is check off. Also updates the particular assignment's css.
 function is_checked(assignment_id) {
-
+    let assignmentCheckbox = document.getElementById(assignment_id).querySelector('.checkbox');
+    let modalCheckbox = document.getElementById("assignment-modal").querySelector('.checkbox');
+    
     firebase.auth().onAuthStateChanged(async (user) => {
         const doc = await db.collection("users").doc(user.uid).get();
         // Updates database
@@ -168,10 +170,14 @@ function is_checked(assignment_id) {
         // Changes the style when the user checks an assignment
         if (mergeArray[assignmentIndex].isCompleted) {
             htmlTemplate.setAttribute("class", "assignment assignment-completed");
+            assignmentCheckbox.checked = true;
+            modalCheckbox.checked = true;
         }
         else {
             const course_tag = htmlTemplate.querySelector(".course-tag-here").innerHTML;
             htmlTemplate.setAttribute("class", "assignment style-" + course_tag);
+            assignmentCheckbox.checked = false;
+            modalCheckbox.checked = false;
         }
 
         // Calculates and adds/removes points

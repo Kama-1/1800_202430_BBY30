@@ -23,8 +23,8 @@ function showAssignmentModal(assignment_id){
         modal.querySelector(".points-here").innerHTML = "+" + base_points + ", +" + time_points + " time bonus"
         modal.querySelector(".checkbox").setAttribute("onchange", "is_checked('" + doc.id + "')");
         modal.querySelector(".bookmark").setAttribute("onchange", "is_bookmarked('" + doc.id + "')");
-        modal.querySelector(".bookmark").checked = document.getElementById(assignment_id).querySelector('.bookmark').checked;
-        
+        modal.querySelector(".bookmark").checked = document.getElementById(assignment_id).querySelector(".bookmark").checked;
+        modal.querySelector(".checkbox").checked = document.getElementById(assignment_id).querySelector(".checkbox").checked;
     })
     
     myModal.show();
