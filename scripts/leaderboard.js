@@ -1,4 +1,4 @@
-// Display top 10 users by 
+// Display top 25 users by rank
 function leaderboard() {
   //Replace leaderboard template
   let tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
@@ -6,21 +6,34 @@ function leaderboard() {
   //Added to clear table before printing new table
   tableTemplate.innerHTML = "";
 
-  db.collection("users").orderBy("points", "desc").limit(25).get().then((users) => {
-    users.forEach((doc) => {
-      const data = doc.data();
-      const row = tableTemplate.insertRow();
-      row.insertCell(0).textContent = rank++;
-      row.insertCell(1).textContent = data.name;
-      row.insertCell(2).textContent = data.points;
-    });
-  }).catch((error) => {
-    console.error("Error fetching leaderboard data: ", error);
-  });
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      const userUID = user.uid;
+      db.collection("users").orderBy("points", "desc").limit(25).get().then((users) => {
+        users.forEach((doc) => {
+
+          const data = doc.data();
+          const row = tableTemplate.insertRow();
+          row.insertCell(0).textContent = rank++;
+          row.insertCell(1).textContent = data.name;
+          row.insertCell(2).textContent = data.points;
+
+          // Highlights the row if current user 
+          if (doc.id === userUID) {
+            row.classList.add("table-active");
+          }
+        });
+      }).catch((error) => {
+        console.error("Error fetching leaderboard data: ", error);
+      });
+    } else {
+      console.error("No user is logged in");
+    }
+  })
 }
 leaderboard();
 
-// Checks if user's in top 10, or else put them at bottom
+// Checks if user's in top 25, or else puts them at bottom
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     const userUID = user.uid;
@@ -33,22 +46,22 @@ firebase.auth().onAuthStateChanged(function (user) {
       });
     });
 
-    // Get top 10 users from firebase
+    // Get top 25 users from firebase
     db.collection("users").orderBy("points", "desc").limit(25).get().then((top10) => {
 
-      // Array of top 10
-      const top10Array = [];
+      // Array of top 25
+      const top25Array = [];
       top10.forEach(doc => {
         let student = { uid: doc.id };
-        top10Array.push(student);
+        top25Array.push(student);
       });
-      let isUserTop10 = top10Array.some(user => user.uid === userUID);
+      let isUserTop25 = top25Array.some(user => user.uid === userUID);
 
       db.collection("users").doc(userUID).get().then((doc) => {
         if (doc.exists) {
           const data = doc.data();
-          // If not top10, place at the bottom of the leaderboard
-          if (!isUserTop10) {
+          // If not top 25, place at the bottom of the leaderboard
+          if (!isUserTop25) {
             let tableTemplate = document.getElementById("leaderboard-goes-here").getElementsByTagName('tbody')[0];
             const row = tableTemplate.insertRow();
             row.insertCell(0).textContent = totalArray.findIndex(user => user.uid === userUID) + 1; // Global rank
