@@ -80,48 +80,18 @@ async function displayAssignmentsDynamically(displayBookmarkedAssignments) {
 function dueDateToText(due_date) {
     var date = due_date.toDate();
     var day = date.getDate();
-    var month = date.getMonth() + 1;
+    var month = date.getMonth();
     var monthString;
-    switch (month) {
-        case 1:
-            monthString = "Jan. ";
-            break;
-        case 2:
-            monthString = "Feb. ";
-            break;
-        case 3:
-            monthString = "Mar. ";
-            break;
-        case 4:
-            monthString = "Apr. ";
-            break;
-        case 5:
-            monthString = "May. ";
-            break;
-        case 6:
-            monthString = "Jun. ";
-            break;
-        case 7:
-            monthString = "Jul. ";
-            break;
-        case 8:
-            monthString = "Aug. ";
-            break;
-        case 9:
-            monthString = "Sep. ";
-            break;
-        case 10:
-            monthString = "Oct. ";
-            break;
-        case 11:
-            monthString = "Nov. ";
-            break;
-        case 12:
-            monthString = "Dec. ";
-            break;
-        default:
-            monthString = "null ";
+    
+    var monthNames = ["Jan. ", "Feb. ", "Mar.", "Apr. ", "May.", "Jun. ",
+        "Jul. ", "Aug. ", "Sep. ", "Oct. ", "Nov. ", "Dec. "];
+
+    if (month) {
+        monthString = monthNames[month];
+    } else {
+        monthString = null;
     }
+    
     return "Due: " + monthString + day
 }
 
