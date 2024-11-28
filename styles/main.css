@@ -33,6 +33,7 @@ html, body {
 
 /* Navbar instance */
 #navBar {
+    margin-bottom: -1vh;
     padding-top: 3vh;
     justify-content: space-around;
 }
