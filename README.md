@@ -14,6 +14,7 @@ List technologies (with version numbers), API's, icons, fonts, images, media or 
 * Bootstrap 5.0 (Frontend library)
 * Firebase 8.0 (BAAS - Backend as a Service)
 * Carly's demo code (displayAssignmentsDynamically() in main.js)
+* Logo and favicon.ico by Jacob Fonseca
 
 ## 4. Complete setup/installion/usage
 State what a user needs to do when they come to your project.  How do others start using your code or application?
@@ -28,9 +29,9 @@ Here are some known bugs:
 
 ## 6. Features for Future
 What we'd like to build in the future:
-* The ability for users to add their own assignments.
-* ...
-* ...
+* Additional website themes
+* Ability for admins to set the time of day that assignments are due
+* Allowing users to create individual assignments (potential idea)
 	
 ## 7. Contents of Folder
 Content of the project folder:
