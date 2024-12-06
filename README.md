@@ -15,6 +15,7 @@ List technologies (with version numbers), API's, icons, fonts, images, media or 
 * Firebase 8.0 (BAAS - Backend as a Service)
 * Carly's demo code (displayAssignmentsDynamically() in main.js)
 * Logo and favicon.ico by Jacob Fonseca
+* Stack overflow for questions or problems with code
 
 ## 4. Complete setup/installion/usage
 State what a user needs to do when they come to your project.  How do others start using your code or application?
@@ -26,12 +27,14 @@ Here are some known bugs:
 * Administrators are unable to edit assignment names.
 * Spamming the check off assignment button causes firebase and the css of the assignment to "de-sync."
 * Some assignments are displayed twice if they are bookmarked.
+* Theme must first load dark mode before loading correct theme.
 
 ## 6. Features for Future
 What we'd like to build in the future:
 * Additional website themes
 * Ability for admins to set the time of day that assignments are due
 * Allowing users to create individual assignments (potential idea)
+* Possible chat for users to talk with each other about the assignment
 	
 ## 7. Contents of Folder
 Content of the project folder:
